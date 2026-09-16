@@ -3,8 +3,11 @@
 {% block meta_description %}AfraViva, the brand of AfricaNext Opportunities (ANO) — blending talent, faith and innovation to build sustainable businesses across Media, Homes, Farms and Business Development.{% endblock %}
 
 {% block content %}
-<section class="bg-forest text-paper" x-data="hero" x-init="init">
-  <div class="max-w-6xl mx-auto px-4 py-24 md:py-32">
+<section class="bg-forest text-paper relative overflow-hidden" x-data="hero" x-init="init">
+  <div class="absolute -right-24 -bottom-24 md:-right-16 md:-bottom-32 pointer-events-none select-none" aria-hidden="true">
+    {% include "_afraviva_mark.html" with size=520 mark_opacity=0.14 ring_color="#F2A93C" %}
+  </div>
+  <div class="max-w-6xl mx-auto px-4 py-24 md:py-32 relative z-10">
     <p class="font-mono text-xs uppercase tracking-widest text-gold mb-4">Where the World Meets Africa</p>
     <h1 x-text="headline" class="font-serif text-4xl md:text-6xl font-semibold leading-tight max-w-3xl transition-opacity duration-500"></h1>
     <p x-text="subhead" class="mt-6 text-paper/80 max-w-xl transition-opacity duration-500"></p>

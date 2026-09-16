@@ -45,8 +45,11 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="bg-forest-dark text-paper mt-16">
-    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
+  <footer class="bg-forest-dark text-paper mt-16 relative overflow-hidden">
+    <div class="absolute -right-20 -top-20 md:-right-10 md:-top-24 pointer-events-none select-none" aria-hidden="true">
+      {% include "_afraviva_mark.html" with size=340 mark_opacity=0.12 ring_color="#F2A93C" %}
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3 relative z-10">
       <div>
         <div class="mb-2">
           {% include "_afraviva_logo.html" with size=28 wordmark_size="text-lg" %}
@@ -71,7 +74,7 @@
         </a>
       </div>
     </div>
-    <div class="border-t border-white/10 text-center text-xs text-paper/50 py-4 font-mono">
+    <div class="border-t border-white/10 text-center text-xs text-paper/50 py-4 font-mono relative z-10">
       &copy; {% now "Y" %} AfraViva, a brand of AfricaNext Opportunities. All rights reserved. · Site developed by Jude Kioko
     </div>
   </footer>
