@@ -1,13 +1,12 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from corporate.models import FAQItem
 from farms_hub.models import FarmUpdate
 from media_hub.models import MediaPost
 
 
 class Command(BaseCommand):
-    help = "Seeds placeholder Media/Farms/FAQ content so the hubs aren't empty in local dev. Not real copy — replace in Phase 4."
+    help = "Seeds placeholder Media/Farms content so the hubs aren't empty in local dev. Not real copy — replace in Phase 4. (FAQ content is real, loaded via migration.)"
 
     def handle(self, *args, **options):
         now = timezone.now()
@@ -31,12 +30,5 @@ class Command(BaseCommand):
             FarmUpdate.objects.get_or_create(
                 title=title, defaults={"body": body, "category": category, "is_published": True, "published_at": now}
             )
-
-        faq_seed = [
-            ("What does AfraViva do?", "AfraViva runs media, farms and community initiatives. Homes is managed separately at homes.afraviva.com."),
-            ("How can I get in touch?", "Use the contact form on this site or email kiokoitdev@afraviva.com."),
-        ]
-        for i, (q, a) in enumerate(faq_seed):
-            FAQItem.objects.get_or_create(question=q, defaults={"answer": a, "order": i})
 
         self.stdout.write(self.style.SUCCESS("Seeded placeholder demo content."))
