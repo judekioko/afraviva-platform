@@ -10,5 +10,15 @@
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full rounded mb-8">
   {% endif %}
   <div class="prose text-ink-soft leading-relaxed whitespace-pre-line">{{ post.body }}</div>
+
+  <div class="mt-12 pt-6 border-t border-line">
+    <p class="font-mono text-xs uppercase tracking-wide text-muted mb-3">Follow AfraViva Media</p>
+    <div class="flex gap-3 flex-wrap font-mono text-xs uppercase tracking-wide">
+      {% for social in MEDIA_SOCIAL_LINKS %}
+        <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-3 py-1.5 border border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
+      {% endfor %}
+      <span class="px-3 py-1.5 border border-line rounded text-muted" title="Facebook link pending">Facebook</span>
+    </div>
+  </div>
 </article>
 {% endblock %}
