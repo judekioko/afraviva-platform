@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ update.title }} — AfraViva Farms{% endblock %}
+
+{% block content %}
+<article class="max-w-3xl mx-auto px-4 py-16">
+  <a href="{% url 'farms_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">← All farm updates</a>
+  <p class="font-mono text-xs text-muted mt-6">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %} · {{ update.published_at|date:"F j, Y" }}</p>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mt-2 mb-8">{{ update.title }}</h1>
+  {% if update.cover_image %}
+    <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full rounded mb-8">
+  {% endif %}
+  <div class="prose text-ink-soft leading-relaxed whitespace-pre-line">{{ update.body }}</div>
+</article>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}AfraViva — Media, Farms & Community{% endblock %}
+
+{% block content %}
+<section class="bg-forest text-paper">
+  <div class="max-w-6xl mx-auto px-4 py-24 md:py-32">
+    <p class="font-mono text-xs uppercase tracking-widest text-gold mb-4">AfraViva</p>
+    <h1 class="font-serif text-4xl md:text-6xl font-semibold leading-tight max-w-3xl">
+      Media that informs. Farms that feed. A community that grows.
+    </h1>
+    <p class="mt-6 text-paper/80 max-w-xl">
+      AfraViva brings together our media desk, agricultural initiatives and
+      community programmes under one roof — with AfraViva Homes serving our
+      real estate arm separately.
+    </p>
+    <div class="mt-8 flex gap-4">
+      <a href="{% url 'corporate:contact' %}" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">Get in touch</a>
+      <a href="{% url 'corporate:about' %}" class="border border-paper/30 px-6 py-3 rounded hover:border-gold transition-colors">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-16">
+  <div class="flex items-baseline justify-between mb-6">
+    <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Media</h2>
+    <a href="{% url 'media_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
+  </div>
+  <div class="grid gap-6 md:grid-cols-3">
+    {% for post in media_teasers %}
+      <a href="{{ post.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-colors bg-paper-alt">
+        <h3 class="font-serif text-lg font-semibold text-ink">{{ post.title }}</h3>
+        <p class="text-sm text-muted mt-2 line-clamp-3">{{ post.body|truncatewords:24 }}</p>
+      </a>
+    {% empty %}
+      <p class="text-muted text-sm">No media posts published yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
+  <div class="flex items-baseline justify-between mb-6">
+    <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Farms</h2>
+    <a href="{% url 'farms_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
+  </div>
+  <div class="grid gap-6 md:grid-cols-3">
+    {% for update in farm_teasers %}
+      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-colors bg-paper-alt">
+        <p class="font-mono text-xs uppercase text-muted mb-2">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %}</p>
+        <h3 class="font-serif text-lg font-semibold text-ink">{{ update.title }}</h3>
+        <p class="text-sm text-muted mt-2 line-clamp-3">{{ update.body|truncatewords:24 }}</p>
+      </a>
+    {% empty %}
+      <p class="text-muted text-sm">No farm updates published yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

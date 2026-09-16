@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}About — AfraViva{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 py-16">
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">About</p>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-6">Who we are</h1>
+  <p class="text-ink-soft leading-relaxed">
+    AfraViva is a community-rooted organisation working across media, agriculture
+    and grassroots development. This page's copy is a placeholder — it will be
+    replaced with the real "About Us" text migrated from the current afraviva.com
+    site during Phase 4 (Content, seeding &amp; QA) of the rebuild.
+  </p>
+</section>
+
+{% if team %}
+<section class="max-w-4xl mx-auto px-4 py-16 border-t border-line">
+  <h2 class="font-serif text-2xl font-semibold text-forest mb-8">Our team</h2>
+  <div class="grid gap-6 md:grid-cols-3">
+    {% for member in team %}
+      <div class="text-center">
+        {% if member.photo %}
+          <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-24 h-24 rounded-full mx-auto object-cover mb-3">
+        {% endif %}
+        <h3 class="font-serif font-semibold text-ink">{{ member.name }}</h3>
+        <p class="text-sm text-muted font-mono uppercase">{{ member.role }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

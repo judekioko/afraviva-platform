@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Farms — AfraViva{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 py-16">
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">AfraViva Farms</p>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-6">Updates from the field</h1>
+
+  <div class="flex gap-3 mb-10 font-mono text-xs uppercase flex-wrap">
+    <a href="{% url 'farms_hub:list' %}" class="px-3 py-1.5 rounded border {% if not active_category %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">All</a>
+    {% for value, label in categories %}
+      <a href="?category={{ value }}" class="px-3 py-1.5 rounded border {% if active_category == value %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">{{ label }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-3">
+    {% for update in page_obj %}
+      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-colors bg-paper-alt">
+        {% if update.cover_image %}
+          <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full h-40 object-cover">
+        {% endif %}
+        <div class="p-5">
+          <p class="font-mono text-xs text-muted mb-1">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %}</p>
+          <h2 class="font-serif text-lg font-semibold text-ink">{{ update.title }}</h2>
+          <p class="text-sm text-muted mt-2 line-clamp-3">{{ update.body|truncatewords:24 }}</p>
+        </div>
+      </a>
+    {% empty %}
+      <p class="text-muted text-sm">Nothing published yet.</p>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+    <div class="flex justify-center gap-4 mt-10 font-mono text-sm">
+      {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}" class="text-gold-text hover:text-gold">← Prev</a>{% endif %}
+      <span class="text-muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="text-gold-text hover:text-gold">Next →</a>{% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

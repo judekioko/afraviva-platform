@@ -1,0 +1,9 @@
+New enquiry received via afraviva.com
+
+Name: {{ enquiry.name }}
+Email: {{ enquiry.email }}
+Phone: {{ enquiry.phone|default:"—" }}
+Source page: {{ enquiry.source_page|default:"unknown" }}
+
+Message:
+{{ enquiry.message }}

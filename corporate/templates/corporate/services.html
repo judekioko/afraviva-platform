@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Services — AfraViva{% endblock %}
+
+{% block content %}
+<section class="max-w-5xl mx-auto px-4 py-16">
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">Services</p>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-10">What we do</h1>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div class="border border-line rounded p-6 bg-paper-alt">
+      <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Media</h2>
+      <p class="text-sm text-muted">Storytelling, reporting and content production. See the latest from the desk in the <a href="{% url 'media_hub:list' %}" class="text-gold-text hover:text-gold">Media hub</a>.</p>
+    </div>
+    <div class="border border-line rounded p-6 bg-paper-alt">
+      <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Farms</h2>
+      <p class="text-sm text-muted">Agricultural initiatives and community farming updates. Browse the <a href="{% url 'farms_hub:list' %}" class="text-gold-text hover:text-gold">Farms hub</a>.</p>
+    </div>
+    <div class="border border-line rounded p-6 bg-paper-alt">
+      <h2 class="font-serif text-xl font-semibold text-ink mb-2">ThrivePoint Insights</h2>
+      <p class="text-sm text-muted">Research and analysis. See <a href="{% url 'corporate:thrivepoint' %}" class="text-gold-text hover:text-gold">ThrivePoint Insights</a>.</p>
+    </div>
+    <div class="border border-line rounded p-6 bg-paper-alt">
+      <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Homes</h2>
+      <p class="text-sm text-muted">Real estate developments, managed on its own site. Visit <a href="{{ HOMES_URL }}" class="text-gold-text hover:text-gold">homes.afraviva.com</a>.</p>
+    </div>
+  </div>
+
+  <p class="text-xs text-muted mt-10 font-mono">Placeholder copy — replaced with real service descriptions during content migration (Phase 4).</p>
+</section>
+{% endblock %}

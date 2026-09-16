@@ -1,0 +1,35 @@
+<form hx-post="{% url 'enquiries:submit' %}" hx-target="#enquiry-form-slot" hx-swap="innerHTML" class="space-y-4">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+    <p class="text-rust text-sm">{{ form.non_field_errors }}</p>
+  {% endif %}
+
+  <div>
+    <label class="block text-sm font-medium text-ink mb-1" for="{{ form.name.id_for_label }}">Name</label>
+    {{ form.name }}
+    {% if form.name.errors %}<p class="text-rust text-xs mt-1">{{ form.name.errors|striptags }}</p>{% endif %}
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-ink mb-1" for="{{ form.email.id_for_label }}">Email</label>
+    {{ form.email }}
+    {% if form.email.errors %}<p class="text-rust text-xs mt-1">{{ form.email.errors|striptags }}</p>{% endif %}
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-ink mb-1" for="{{ form.phone.id_for_label }}">Phone (optional)</label>
+    {{ form.phone }}
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-ink mb-1" for="{{ form.message.id_for_label }}">Message</label>
+    {{ form.message }}
+    {% if form.message.errors %}<p class="text-rust text-xs mt-1">{{ form.message.errors|striptags }}</p>{% endif %}
+  </div>
+
+  {{ form.source_page }}
+
+  <button type="submit" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">
+    Send message
+  </button>
+</form>
