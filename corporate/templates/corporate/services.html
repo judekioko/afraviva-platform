@@ -1,33 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Services — AfraViva{% endblock %}
+{% block title %}Services — AfricaNext Opportunities{% endblock %}
 {% block meta_description %}AfraViva's services: Media, Homes, Farms and Business Development — discover how we empower your goals with innovative expertise.{% endblock %}
 
 {% block content %}
-<section class="max-w-5xl mx-auto px-4 py-16">
+<section class="max-w-5xl mx-auto px-4 py-16 reveal">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">Our Services</p>
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">What we do</h1>
   <p class="text-ink-soft max-w-2xl mb-10">Discover how we empower your goals with innovative expertise.</p>
 
   <div class="grid gap-6 md:grid-cols-2">
-    <div class="border border-line rounded p-6 bg-paper-alt">
+    <div class="border border-line rounded p-6 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">01</p>
       <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Media</h2>
       <p class="text-sm text-muted mb-3">A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family, and religious freedom, relevant to contemporary African society.</p>
       <a href="{% url 'media_hub:list' %}" class="text-sm text-gold-text hover:text-gold">Learn more →</a>
     </div>
-    <div class="border border-line rounded p-6 bg-paper-alt">
+    <div class="border border-line rounded p-6 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">02</p>
       <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Homes</h2>
       <p class="text-sm text-muted mb-3">Invest in, design, and manage model residences well situated to key urban locations. Links to Airbnb.</p>
       <a href="{{ HOMES_URL }}" class="text-sm text-gold-text hover:text-gold">Visit homes.afraviva.com →</a>
     </div>
-    <div class="border border-line rounded p-6 bg-paper-alt">
+    <div class="border border-line rounded p-6 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">03</p>
       <h2 class="font-serif text-xl font-semibold text-ink mb-2">AfraViva Farms</h2>
       <p class="text-sm text-muted mb-3">We model farms for promoting competitive and productive family and community-based farms.</p>
       <a href="{% url 'farms_hub:list' %}" class="text-sm text-gold-text hover:text-gold">Learn more →</a>
     </div>
-    <div class="border border-line rounded p-6 bg-paper-alt">
+    <div class="border border-line rounded p-6 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">04</p>
       <h2 class="font-serif text-xl font-semibold text-ink mb-2">Business Development</h2>
       <p class="text-sm text-muted mb-3">AfraViva is both a business accelerator for, and at times an investor in, new businesses focusing on the African market.</p>
@@ -36,24 +36,24 @@
   </div>
 </section>
 
-<section class="max-w-5xl mx-auto px-4 py-16 border-t border-line">
+<section class="max-w-5xl mx-auto px-4 py-16 border-t border-line reveal">
   <h2 class="font-serif text-2xl font-semibold text-forest mb-2">Featured client success stories</h2>
   <p class="text-sm text-muted mb-8">Our Business Development advisory and hosting clients include:</p>
 
   <div class="grid gap-6 md:grid-cols-2">
-    <div class="border border-line rounded p-6">
+    <div class="border border-line rounded p-6 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">BYG Advantage</h3>
       <p class="text-sm text-muted">Leading global sales accelerator focused on high-growth, tech-centric businesses seeking to expand into new markets.</p>
     </div>
-    <div class="border border-line rounded p-6">
+    <div class="border border-line rounded p-6 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">LifeSiteNews</h3>
       <p class="text-sm text-muted">Internet news service established in Canada in 1997, now active worldwide, dedicated to issues of life, family, and faith.</p>
     </div>
-    <div class="border border-line rounded p-6">
+    <div class="border border-line rounded p-6 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">OffChain — Global Web3 Community</h3>
       <p class="text-sm text-muted">Bringing together professionals in Web3 and related AI, crypto, and blockchain industries through social and educational interactions.</p>
     </div>
-    <div class="border border-line rounded p-6">
+    <div class="border border-line rounded p-6 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">Cash Kinetic (Kenya)</h3>
       <p class="text-sm text-muted">Developer of a groundbreaking contactless payment device designed to digitize cash payments in Africa.</p>
     </div>

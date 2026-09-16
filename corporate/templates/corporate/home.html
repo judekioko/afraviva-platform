@@ -1,22 +1,22 @@
 {% extends "base.html" %}
-{% block title %}AfraViva — Where the World Meets Africa{% endblock %}
+{% block title %}AfricaNext Opportunities — Where the World Meets Africa{% endblock %}
 {% block meta_description %}AfraViva, the brand of AfricaNext Opportunities (ANO) — blending talent, faith and innovation to build sustainable businesses across Media, Homes, Farms and Business Development.{% endblock %}
 
 {% block content %}
 <section class="bg-forest text-paper" x-data="hero" x-init="init">
   <div class="max-w-6xl mx-auto px-4 py-24 md:py-32">
     <p class="font-mono text-xs uppercase tracking-widest text-gold mb-4">Where the World Meets Africa</p>
-    <h1 x-text="headline" class="font-serif text-4xl md:text-6xl font-semibold leading-tight max-w-3xl"></h1>
-    <p x-text="subhead" class="mt-6 text-paper/80 max-w-xl"></p>
+    <h1 x-text="headline" class="font-serif text-4xl md:text-6xl font-semibold leading-tight max-w-3xl transition-opacity duration-500"></h1>
+    <p x-text="subhead" class="mt-6 text-paper/80 max-w-xl transition-opacity duration-500"></p>
     <div class="mt-8 flex flex-wrap gap-4">
-      <a href="{% url 'corporate:services' %}" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">Discover Our Work</a>
-      <a href="{% url 'corporate:contact' %}" class="border border-paper/30 px-6 py-3 rounded hover:border-gold transition-colors">Get Involved</a>
-      <a href="https://wa.me/+254705837629?text=Hello%20I%20would%20like%20to%20connect" class="border border-paper/30 px-6 py-3 rounded hover:border-gold transition-colors">Connect via WhatsApp</a>
+      <a href="{% url 'corporate:services' %}" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-all hover:-translate-y-0.5">Discover Our Work</a>
+      <a href="{% url 'corporate:contact' %}" class="border border-paper/30 px-6 py-3 rounded hover:border-gold transition-all hover:-translate-y-0.5">Get Involved</a>
+      <a href="https://wa.me/+254705837629?text=Hello%20I%20would%20like%20to%20connect" class="border border-paper/30 px-6 py-3 rounded hover:border-gold transition-all hover:-translate-y-0.5">Connect via WhatsApp</a>
     </div>
   </div>
 </section>
 
-<section class="max-w-4xl mx-auto px-4 py-16 text-center">
+<section class="max-w-4xl mx-auto px-4 py-16 text-center reveal">
   <h2 class="font-serif text-2xl md:text-3xl font-semibold text-forest mb-4">Building Africa's Future with Purpose and Profit</h2>
   <p class="text-ink-soft leading-relaxed">
     At AfraViva, the brand of AfricaNext Opportunities (ANO), we blend talent and ambition to grow
@@ -24,35 +24,35 @@
     accelerate startups and invest in sectors that uplift lives — delivering sustainability and success.
   </p>
   <div class="flex justify-center gap-4 flex-wrap mt-8 font-mono text-sm uppercase tracking-wide">
-    <a href="{% url 'farms_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text">AfraViva Farms</a>
-    <a href="{% url 'media_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text">AfraViva Media</a>
-    <a href="{{ HOMES_URL }}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text">AfraViva Homes</a>
+    <a href="{% url 'farms_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Farms</a>
+    <a href="{% url 'media_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Media</a>
+    <a href="{{ HOMES_URL }}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Homes</a>
   </div>
 </section>
 
-<section id="services" class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
+<section id="services" class="max-w-6xl mx-auto px-4 py-16 border-t border-line reveal">
   <div class="flex items-baseline justify-between mb-2 flex-wrap gap-2">
     <h2 class="font-serif text-2xl font-semibold text-forest">Our Services</h2>
     <a href="{% url 'corporate:services' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <p class="text-sm text-muted mb-8">Discover how we empower your goals with innovative expertise.</p>
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-    <div class="border border-line rounded p-5 bg-paper-alt">
+    <div class="border border-line rounded p-5 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">01</p>
       <h3 class="font-serif font-semibold text-ink mb-1">AfraViva Media</h3>
       <p class="text-sm text-muted">A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family, and religious freedom, relevant to contemporary African society.</p>
     </div>
-    <div class="border border-line rounded p-5 bg-paper-alt">
+    <div class="border border-line rounded p-5 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">02</p>
       <h3 class="font-serif font-semibold text-ink mb-1">AfraViva Homes</h3>
       <p class="text-sm text-muted">Invest in, design, and manage model residences well situated to key urban locations. Links to Airbnb.</p>
     </div>
-    <div class="border border-line rounded p-5 bg-paper-alt">
+    <div class="border border-line rounded p-5 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">03</p>
       <h3 class="font-serif font-semibold text-ink mb-1">AfraViva Farms</h3>
       <p class="text-sm text-muted">We model farms for promoting competitive and productive family and community-based farms.</p>
     </div>
-    <div class="border border-line rounded p-5 bg-paper-alt">
+    <div class="border border-line rounded p-5 bg-paper-alt transition-all hover:-translate-y-1 hover:shadow-md">
       <p class="font-mono text-xs text-gold-text mb-2">04</p>
       <h3 class="font-serif font-semibold text-ink mb-1">Business Development</h3>
       <p class="text-sm text-muted">AfraViva is both a business accelerator for, and at times an investor in, new businesses focusing on the African market.</p>
@@ -60,14 +60,17 @@
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
-  <div class="flex items-baseline justify-between mb-6">
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line reveal">
+  <div class="flex items-center gap-2 mb-1">
+    {% include "_afraviva_mark.html" with size=18 %}
     <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Media</h2>
+  </div>
+  <div class="flex items-baseline justify-end mb-6">
     <a href="{% url 'media_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <div class="grid gap-6 md:grid-cols-3">
     {% for post in media_teasers %}
-      <a href="{{ post.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-colors bg-paper-alt">
+      <a href="{{ post.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
         <h3 class="font-serif text-lg font-semibold text-ink">{{ post.title }}</h3>
         <p class="text-sm text-muted mt-2 line-clamp-3">{{ post.body|truncatewords:24 }}</p>
       </a>
@@ -77,14 +80,17 @@
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
-  <div class="flex items-baseline justify-between mb-6">
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line reveal">
+  <div class="flex items-center gap-2 mb-1">
+    {% include "_afraviva_mark.html" with size=18 %}
     <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Farms</h2>
+  </div>
+  <div class="flex items-baseline justify-end mb-6">
     <a href="{% url 'farms_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <div class="grid gap-6 md:grid-cols-3">
     {% for update in farm_teasers %}
-      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-colors bg-paper-alt">
+      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded p-5 hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
         <p class="font-mono text-xs uppercase text-muted mb-2">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %}</p>
         <h3 class="font-serif text-lg font-semibold text-ink">{{ update.title }}</h3>
         <p class="text-sm text-muted mt-2 line-clamp-3">{{ update.body|truncatewords:24 }}</p>
@@ -95,30 +101,30 @@
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line reveal">
   <h2 class="font-serif text-2xl font-semibold text-forest mb-2">Featured Client Success Stories</h2>
   <p class="text-sm text-muted mb-8">Our Business Development advisory and hosting clients include:</p>
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-    <div class="border border-line rounded p-5">
+    <div class="border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">BYG Advantage</h3>
       <p class="text-sm text-muted">Leading global sales accelerator focused on high-growth, tech-centric businesses seeking to expand into new markets.</p>
     </div>
-    <div class="border border-line rounded p-5">
+    <div class="border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">LifeSiteNews</h3>
       <p class="text-sm text-muted">Internet news service established in Canada in 1997, now active worldwide, dedicated to issues of life, family, and faith.</p>
     </div>
-    <div class="border border-line rounded p-5">
+    <div class="border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">OffChain</h3>
       <p class="text-sm text-muted">Global Web3 community bringing together professionals in Web3, AI, crypto and blockchain through social and educational interactions.</p>
     </div>
-    <div class="border border-line rounded p-5">
+    <div class="border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md">
       <h3 class="font-serif font-semibold text-ink mb-2">Cash Kinetic (Kenya)</h3>
       <p class="text-sm text-muted">Developer of a groundbreaking contactless payment device designed to digitize cash payments in Africa.</p>
     </div>
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line bg-paper-alt">
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line bg-paper-alt reveal">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-2">AfricaNext Vision, Guiding Principles &amp; Objectives</p>
   <h2 class="font-serif text-2xl font-semibold text-forest mb-8">Crafting a future of innovation and impact</h2>
   <div class="grid gap-6 md:grid-cols-4">
@@ -154,24 +160,24 @@
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line">
+<section class="max-w-6xl mx-auto px-4 py-16 border-t border-line reveal">
   <div class="flex items-baseline justify-between mb-2">
     <h2 class="font-serif text-2xl font-semibold text-forest">ThrivePoint Insights</h2>
     <a href="{% url 'corporate:thrivepoint' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <p class="text-sm text-muted mb-8">Unrivaled insights from AfraViva on Africa's future.</p>
   <div class="grid gap-6 md:grid-cols-3">
-    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 hover:border-gold transition-colors">
+    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md hover:border-gold">
       <p class="font-mono text-xs uppercase text-gold-text mb-2">Report</p>
       <h3 class="font-serif font-semibold text-ink mb-1">African Business Growth Report 2025</h3>
       <p class="text-sm text-muted">Strategies that redefine African markets.</p>
     </a>
-    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 hover:border-gold transition-colors">
+    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md hover:border-gold">
       <p class="font-mono text-xs uppercase text-gold-text mb-2">Guide</p>
       <h3 class="font-serif font-semibold text-ink mb-1">SME Development Guide 2025</h3>
       <p class="text-sm text-muted">Empowering the backbone of Africa's economy.</p>
     </a>
-    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 hover:border-gold transition-colors">
+    <a href="{% url 'corporate:thrivepoint' %}" class="block border border-line rounded p-5 transition-all hover:-translate-y-1 hover:shadow-md hover:border-gold">
       <p class="font-mono text-xs uppercase text-gold-text mb-2">Trends</p>
       <h3 class="font-serif font-semibold text-ink mb-1">Market Expansion Trends 2025</h3>
       <p class="text-sm text-muted">Where opportunity meets innovation.</p>

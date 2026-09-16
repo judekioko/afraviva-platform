@@ -3,7 +3,10 @@
 
 {% block content %}
 <section class="max-w-6xl mx-auto px-4 py-16">
-  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">AfraViva Farms</p>
+  <div class="flex items-center gap-2 mb-4">
+    {% include "_afraviva_mark.html" with size=20 %}
+    <p class="font-mono text-xs uppercase tracking-widest text-gold-text">AfraViva Farms</p>
+  </div>
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-6">Updates from the field</h1>
 
   <div class="flex gap-3 mb-10 font-mono text-xs uppercase flex-wrap">
@@ -15,7 +18,7 @@
 
   <div class="grid gap-6 md:grid-cols-3">
     {% for update in page_obj %}
-      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-colors bg-paper-alt">
+      <a href="{{ update.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
         {% if update.cover_image %}
           <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full h-40 object-cover">
         {% endif %}

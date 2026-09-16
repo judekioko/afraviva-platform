@@ -4,7 +4,11 @@
 {% block content %}
 <article class="max-w-3xl mx-auto px-4 py-16">
   <a href="{% url 'media_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">← All media</a>
-  <p class="font-mono text-xs text-muted mt-6">{{ post.published_at|date:"F j, Y" }}{% if post.author %} · {{ post.author.get_full_name|default:post.author.username }}{% endif %}</p>
+  <div class="flex items-center gap-2 mt-6">
+    {% include "_afraviva_mark.html" with size=16 %}
+    <span class="font-mono text-xs uppercase tracking-wide text-gold-text">AfraViva Media</span>
+  </div>
+  <p class="font-mono text-xs text-muted mt-2">{{ post.published_at|date:"F j, Y" }}{% if post.author %} · {{ post.author.get_full_name|default:post.author.username }}{% endif %}</p>
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mt-2 mb-8">{{ post.title }}</h1>
   {% if post.cover_image %}
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full rounded mb-8">

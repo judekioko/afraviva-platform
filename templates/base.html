@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}AfraViva{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}AfraViva — Media, Farms and community initiatives.{% endblock %}">
+  <title>{% block title %}AfricaNext Opportunities{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}AfricaNext Opportunities — building sustainable, purpose-driven businesses across Africa, home to the AfraViva Media, Homes and Farms brands.{% endblock %}">
   <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
   {% load static %}
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,7 +17,10 @@
 
   <header class="border-b border-line bg-paper sticky top-0 z-40" x-data="nav">
     <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-      <a href="{% url 'corporate:home' %}" class="font-serif text-xl font-semibold text-forest">AfraViva</a>
+      <a href="{% url 'corporate:home' %}" class="flex items-center gap-2">
+        <img src="{% static 'img/africanext-logo.png' %}" alt="AfricaNext Opportunities" class="h-9 w-auto">
+        <span class="font-serif text-lg font-semibold text-forest hidden sm:inline">AfricaNext Opportunities</span>
+      </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
         {% for link in NAV_LINKS %}
@@ -46,8 +49,10 @@
   <footer class="bg-forest-dark text-paper mt-16">
     <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
       <div>
-        <div class="font-serif text-lg font-semibold mb-2">AfraViva</div>
-        <p class="text-sm text-paper/70">Media, Farms and community initiatives across the region.</p>
+        <div class="flex items-center gap-2 mb-2">
+          <img src="{% static 'img/africanext-logo.png' %}" alt="AfricaNext Opportunities" class="h-8 w-auto">
+        </div>
+        <p class="text-sm text-paper/70">Building sustainable, purpose-driven businesses across Africa — home to the AfraViva Media, Homes and Farms brands.</p>
       </div>
       <div>
         <h4 class="font-mono text-xs uppercase tracking-wide text-gold mb-3">Explore</h4>
@@ -61,11 +66,14 @@
         <h4 class="font-mono text-xs uppercase tracking-wide text-gold mb-3">Contact</h4>
         <p class="text-sm text-paper/80">St. Joseph Studio, Covenant Road, off Ngong Road<br>Past Dagoretti Corner, Nairobi, Kenya</p>
         <p class="text-sm text-paper/80 mt-2">Admin@afraviva.com</p>
-        <a href="{{ HOMES_URL }}" class="text-sm text-gold-text hover:text-gold mt-2 inline-block">Visit AfraViva Homes →</a>
+        <a href="{{ HOMES_URL }}" class="text-sm text-gold-text hover:text-gold mt-2 inline-flex items-center gap-2">
+          {% include "_afraviva_mark.html" with size=16 continent_color="#B98A46" %}
+          Visit AfraViva Homes →
+        </a>
       </div>
     </div>
     <div class="border-t border-white/10 text-center text-xs text-paper/50 py-4 font-mono">
-      &copy; {% now "Y" %} AfraViva. All rights reserved. · Site developed by Jude Kioko
+      &copy; {% now "Y" %} AfricaNext Opportunities. All rights reserved. · Site developed by Jude Kioko
     </div>
   </footer>
 </body>
