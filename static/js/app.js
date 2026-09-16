@@ -10,4 +10,29 @@ document.addEventListener("alpine:init", () => {
     toggle() { this.open = !this.open; },
     symbol() { return this.open ? "−" : "+"; },
   }));
+
+  Alpine.data("hero", () => ({
+    slides: [
+      {
+        headline: "Empowering Africa's Next Generation of Impact",
+        sub: "Blending talent, faith, and innovation to build sustainable businesses that uplift communities.",
+      },
+      {
+        headline: "Uniting Africa's Visionaries for Progress",
+        sub: "Fostering growth and opportunity through purpose-driven investments and partnerships.",
+      },
+      {
+        headline: "Transforming Africa's Future with Purpose",
+        sub: "Accelerating innovation and sustainability to create lasting change across the continent.",
+      },
+    ],
+    index: 0,
+    init() {
+      setInterval(() => {
+        this.index = (this.index + 1) % this.slides.length;
+      }, 6000);
+    },
+    headline() { return this.slides[this.index].headline; },
+    subhead() { return this.slides[this.index].sub; },
+  }));
 });
