@@ -18,6 +18,7 @@ def site_nav(request):
         ],
         "HOMES_URL": "https://homes.afraviva.com",
         "MEDIA_SOCIAL_LINKS": [
+            {"label": "Instagram", "url": "https://www.instagram.com/Afraviva_media"},
             {"label": "TikTok", "url": "https://www.tiktok.com/@afravivamedia"},
             {"label": "YouTube", "url": "https://www.youtube.com/@AfravivaMedia"},
             {"label": "X", "url": "https://x.com/AfravivaMedia"},
