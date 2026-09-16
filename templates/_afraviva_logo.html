@@ -1,0 +1,14 @@
+{% comment %}
+Usage: {% include "_afraviva_logo.html" with size=28 subtitle="Media" %}
+subtitle is optional — omit it for the plain "AfraViva" mark (site-wide identity).
+Pass subtitle="Media"/"Farms"/"Homes" only on that discipline's own pages.
+{% endcomment %}
+<span class="inline-flex items-center gap-2">
+  {% include "_afraviva_mark.html" with size=size|default:28 %}
+  <span class="leading-tight">
+    <span class="block font-sans font-extrabold {{ wordmark_size|default:"text-lg" }}">
+      <span style="color:#3E2A1B">Afra</span><span style="color:#E2861F">Viva</span>
+    </span>
+    {% if subtitle %}<span class="block text-[10px] font-mono uppercase tracking-widest" style="color:#3E2A1B">{{ subtitle }}</span>{% endif %}
+  </span>
+</span>

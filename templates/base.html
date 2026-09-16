@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}AfricaNext Opportunities{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}AfricaNext Opportunities — building sustainable, purpose-driven businesses across Africa, home to the AfraViva Media, Homes and Farms brands.{% endblock %}">
+  <title>{% block title %}AfraViva{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}AfraViva — Media, Homes and Farms, brands of AfricaNext Opportunities (ANO).{% endblock %}">
   <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
   {% load static %}
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/tailwind.build.css' %}">
   <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
@@ -17,9 +17,8 @@
 
   <header class="border-b border-line bg-paper sticky top-0 z-40" x-data="nav">
     <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-      <a href="{% url 'corporate:home' %}" class="flex items-center gap-2">
-        <img src="{% static 'img/africanext-logo.png' %}" alt="AfricaNext Opportunities" class="h-9 w-auto">
-        <span class="font-serif text-lg font-semibold text-forest hidden sm:inline">AfricaNext Opportunities</span>
+      <a href="{% url 'corporate:home' %}">
+        {% include "_afraviva_logo.html" with size=32 wordmark_size="text-xl" %}
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -49,10 +48,10 @@
   <footer class="bg-forest-dark text-paper mt-16">
     <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
       <div>
-        <div class="flex items-center gap-2 mb-2">
-          <img src="{% static 'img/africanext-logo.png' %}" alt="AfricaNext Opportunities" class="h-8 w-auto">
+        <div class="mb-2">
+          {% include "_afraviva_logo.html" with size=28 wordmark_size="text-lg" %}
         </div>
-        <p class="text-sm text-paper/70">Building sustainable, purpose-driven businesses across Africa — home to the AfraViva Media, Homes and Farms brands.</p>
+        <p class="text-sm text-paper/70">Media, Homes and Farms — brands of AfricaNext Opportunities (ANO), building sustainable, purpose-driven businesses across Africa.</p>
       </div>
       <div>
         <h4 class="font-mono text-xs uppercase tracking-wide text-gold mb-3">Explore</h4>
@@ -67,13 +66,13 @@
         <p class="text-sm text-paper/80">St. Joseph Studio, Covenant Road, off Ngong Road<br>Past Dagoretti Corner, Nairobi, Kenya</p>
         <p class="text-sm text-paper/80 mt-2">Admin@afraviva.com</p>
         <a href="{{ HOMES_URL }}" class="text-sm text-gold-text hover:text-gold mt-2 inline-flex items-center gap-2">
-          {% include "_afraviva_mark.html" with size=16 continent_color="#B98A46" %}
+          {% include "_afraviva_mark.html" with size=16 %}
           Visit AfraViva Homes →
         </a>
       </div>
     </div>
     <div class="border-t border-white/10 text-center text-xs text-paper/50 py-4 font-mono">
-      &copy; {% now "Y" %} AfricaNext Opportunities. All rights reserved. · Site developed by Jude Kioko
+      &copy; {% now "Y" %} AfraViva, a brand of AfricaNext Opportunities. All rights reserved. · Site developed by Jude Kioko
     </div>
   </footer>
 </body>
