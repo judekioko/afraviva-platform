@@ -1,14 +1,17 @@
+{% load static %}
 {% comment %}
-Usage: {% include "_afraviva_logo.html" with size=28 subtitle="Media" %}
-subtitle is optional — omit it for the plain "AfraViva" mark (site-wide identity).
-Pass subtitle="Media"/"Farms"/"Homes" only on that discipline's own pages.
+Usage: {% include "_afraviva_logo.html" with size=32 subtitle="Media" %}
+Uses the real AfraViva logo photo (not a recreated SVG). "Media" has its own
+real photo (subtitle baked in); any other subtitle (e.g. "Farms") is added as
+HTML text under the plain mark, since no real photo exists for it yet.
 {% endcomment %}
-<span class="inline-flex items-center gap-2">
-  {% include "_afraviva_mark.html" with size=size|default:28 %}
-  <span class="leading-tight">
-    <span class="block font-sans font-extrabold {{ wordmark_size|default:"text-lg" }}">
-      <span style="color:#3E2A1B">Afra</span><span style="color:#E2861F">Viva</span>
-    </span>
-    {% if subtitle %}<span class="block text-[10px] font-mono uppercase tracking-widest" style="color:#3E2A1B">{{ subtitle }}</span>{% endif %}
+{% if subtitle == "Media" %}
+  <img src="{% static 'img/afraviva-media-logo.jpg' %}" alt="AfraViva Media" style="height:{{ size|default:32 }}px; width:auto;" class="inline-block align-middle">
+{% elif subtitle %}
+  <span class="inline-flex flex-col items-start">
+    <img src="{% static 'img/afraviva-logo.png' %}" alt="AfraViva" style="height:{{ size|default:32 }}px; width:auto;">
+    <span class="text-[10px] font-mono uppercase tracking-widest mt-0.5" style="color:#3E2A1B">{{ subtitle }}</span>
   </span>
-</span>
+{% else %}
+  <img src="{% static 'img/afraviva-logo.png' %}" alt="AfraViva" style="height:{{ size|default:32 }}px; width:auto;" class="inline-block align-middle">
+{% endif %}

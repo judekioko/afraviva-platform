@@ -47,7 +47,7 @@
 
   <footer class="bg-forest-dark text-paper mt-16 relative overflow-hidden">
     <div class="absolute -right-20 -top-20 md:-right-10 md:-top-24 pointer-events-none select-none" aria-hidden="true">
-      {% include "_afraviva_mark.html" with size=340 mark_opacity=0.12 ring_color="#F2A93C" %}
+      <img src="{% static 'img/afraviva-logo.png' %}" alt="" style="width:340px; height:auto; opacity:0.14;">
     </div>
     <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3 relative z-10">
       <div>
@@ -69,7 +69,7 @@
         <p class="text-sm text-paper/80">St. Joseph Studio, Covenant Road, off Ngong Road<br>Past Dagoretti Corner, Nairobi, Kenya</p>
         <p class="text-sm text-paper/80 mt-2">Admin@afraviva.com</p>
         <a href="{{ HOMES_URL }}" class="text-sm text-gold-text hover:text-gold mt-2 inline-flex items-center gap-2">
-          {% include "_afraviva_mark.html" with size=16 %}
+          <img src="{% static 'img/afraviva-logo.png' %}" alt="" style="height:16px; width:auto;">
           Visit AfraViva Homes →
         </a>
       </div>

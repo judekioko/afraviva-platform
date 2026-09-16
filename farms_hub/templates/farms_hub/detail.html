@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ update.title }} — AfraViva Farms{% endblock %}
 
 {% block content %}
 <article class="max-w-3xl mx-auto px-4 py-16">
   <a href="{% url 'farms_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">← All farm updates</a>
   <div class="flex items-center gap-2 mt-6">
-    {% include "_afraviva_mark.html" with size=16 %}
+    <img src="{% static 'img/afraviva-logo.png' %}" alt="AfraViva" style="height:16px; width:auto;">
     <span class="font-mono text-xs uppercase tracking-wide text-gold-text">AfraViva Farms</span>
   </div>
   <p class="font-mono text-xs text-muted mt-2">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %} · {{ update.published_at|date:"F j, Y" }}</p>
