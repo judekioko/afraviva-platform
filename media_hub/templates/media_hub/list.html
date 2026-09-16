@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Media — AfraViva{% endblock %}
+{% block meta_description %}AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom.{% endblock %}
 
 {% block content %}
 <section class="max-w-6xl mx-auto px-4 py-16">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">AfraViva Media</p>
-  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-10">Latest from the desk</h1>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">Latest from the desk</h1>
+  <p class="text-ink-soft max-w-2xl mb-10">
+    A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content
+    on faith, family and religious freedom, relevant to contemporary African society.
+  </p>
 
   <div class="grid gap-6 md:grid-cols-3">
     {% for post in page_obj %}
