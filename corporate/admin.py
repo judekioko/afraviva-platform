@@ -2,6 +2,10 @@ from django.contrib import admin
 
 from .models import FAQItem, TeamMember
 
+admin.site.site_header = "AfraViva Admin"
+admin.site.site_title = "AfraViva Admin"
+admin.site.index_title = "AfraViva content management"
+
 
 @admin.register(FAQItem)
 class FAQItemAdmin(admin.ModelAdmin):
