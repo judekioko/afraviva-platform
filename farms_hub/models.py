@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from corporate.validators import validate_image_upload
+
 
 class FarmUpdate(models.Model):
     CATEGORY_CHOICES = [
@@ -15,7 +17,7 @@ class FarmUpdate(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     body = models.TextField()
-    cover_image = models.ImageField(upload_to="farm_updates/", blank=True, null=True)
+    cover_image = models.ImageField(upload_to="farm_updates/", blank=True, null=True, validators=[validate_image_upload])
     location = models.CharField(max_length=120, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default="crop")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)

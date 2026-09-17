@@ -1,5 +1,34 @@
+import io
+
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
+from PIL import Image
+
+from .validators import MAX_UPLOAD_SIZE_MB, validate_image_upload
+
+
+def _make_image_file(name, size_px=(100, 100)):
+    buf = io.BytesIO()
+    Image.new("RGB", size_px).save(buf, format="PNG")
+    return SimpleUploadedFile(name, buf.getvalue(), content_type="image/png")
+
+
+class ImageUploadValidatorTests(TestCase):
+    def test_normal_image_passes(self):
+        validate_image_upload(_make_image_file("ok.png"))
+
+    def test_oversized_file_is_rejected(self):
+        f = _make_image_file("big.png")
+        f.size = (MAX_UPLOAD_SIZE_MB + 1) * 1024 * 1024
+        with self.assertRaises(ValidationError):
+            validate_image_upload(f)
+
+    def test_oversized_dimensions_are_rejected(self):
+        f = _make_image_file("huge.png", size_px=(6001, 10))
+        with self.assertRaises(ValidationError):
+            validate_image_upload(f)
 
 
 class CorporatePagesTests(TestCase):

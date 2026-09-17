@@ -34,5 +34,5 @@ def faq(request):
 
 
 def contact(request):
-    context = {"form": EnquiryForm(initial={"source_page": "contact"})}
+    context = {"form": EnquiryForm()}
     return render(request, "corporate/contact.html", context)

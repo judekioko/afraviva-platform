@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
@@ -8,6 +8,17 @@
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{% if request.user.is_authenticated %}
+<script id="idle-timeout-script"
+        src="{% static 'js/admin-idle-timeout.js' %}"
+        data-idle-timeout-seconds="{{ ADMIN_IDLE_TIMEOUT_SECONDS }}"
+        data-logout-url="{% url 'admin:logout' %}"
+        defer></script>
+{% endif %}
+{% endblock %}
 
 {% block extrastyle %}
 {{ block.super }}

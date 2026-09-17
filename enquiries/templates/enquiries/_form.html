@@ -27,7 +27,10 @@
     {% if form.message.errors %}<p class="text-rust text-xs mt-1">{{ form.message.errors|striptags }}</p>{% endif %}
   </div>
 
-  {{ form.source_page }}
+  <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px;">
+    <label for="{{ form.hp_website.id_for_label }}">Website</label>
+    {{ form.hp_website }}
+  </div>
 
   <button type="submit" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">
     Send message

@@ -3,12 +3,14 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from corporate.validators import validate_image_upload
+
 
 class MediaPost(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     body = models.TextField()
-    cover_image = models.ImageField(upload_to="media_posts/", blank=True, null=True)
+    cover_image = models.ImageField(upload_to="media_posts/", blank=True, null=True, validators=[validate_image_upload])
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     published_at = models.DateTimeField(blank=True, null=True)
     is_published = models.BooleanField(default=False)

@@ -1,3 +1,10 @@
+from django.conf import settings
+
+
+def admin_idle_timeout(request):
+    return {"ADMIN_IDLE_TIMEOUT_SECONDS": settings.ADMIN_IDLE_TIMEOUT_SECONDS}
+
+
 def site_nav(request):
     """Global nav config, shared across every template.
 

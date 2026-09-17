@@ -13,7 +13,12 @@ def submit_enquiry(request):
     if request.method == "POST":
         form = EnquiryForm(request.POST)
         if form.is_valid():
-            enquiry = form.save()
+            enquiry = form.save(commit=False)
+            # Set server-side from the referer, never trust a client-supplied
+            # value for this — it's only used for staff context, but a forged
+            # source_page could otherwise spoof where a lead claims to be from.
+            enquiry.source_page = request.META.get("HTTP_REFERER", "")[:120]
+            enquiry.save()
             if settings.ENQUIRY_NOTIFY_TO:
                 send_mail(
                     subject=f"New enquiry from {enquiry.name} ({enquiry.source_page or 'website'})",
