@@ -6,7 +6,12 @@
   <div class="mb-6">
     {% include "_afraviva_logo.html" with size=40 subtitle="Farms" wordmark_size="text-2xl" %}
   </div>
-  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-6">Updates from the field</h1>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">Building something new in agriculture</h1>
+  <p class="text-ink-soft max-w-2xl mb-10">
+    AfraViva Farms is our newest venture, launched to pilot farm-to-market platforms and
+    hands-on training for family and community farms across Kenya and Uganda. These are real
+    updates from an early-stage effort — the wins, the lessons, and what's next.
+  </p>
 
   <div class="flex gap-3 mb-10 font-mono text-xs uppercase flex-wrap">
     <a href="{% url 'farms_hub:list' %}" class="px-3 py-1.5 rounded border {% if not active_category %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">All</a>
