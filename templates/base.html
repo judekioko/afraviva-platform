@@ -18,7 +18,7 @@
   <header class="border-b border-line bg-paper sticky top-0 z-40" x-data="nav">
     <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
       <div class="flex items-center gap-3">
-        <a href="{% url 'corporate:home' %}">
+        <a href="{% if ON_MAIN_SITE %}{% url 'corporate:home' %}{% else %}{{ HOME_HREF }}{% endif %}">
           {% include "_afraviva_logo.html" with size=32 wordmark_size="text-xl" %}
         </a>
         <span class="inline-block h-4 sm:h-6 w-px bg-line"></span>
@@ -27,7 +27,7 @@
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
         {% for link in NAV_LINKS %}
-          <a href="{% url link.url %}" class="hover:text-gold-text transition-colors">{{ link.label }}</a>
+          <a href="{% if link.external %}{{ link.external }}{% else %}{% url link.url %}{% endif %}" class="hover:text-gold-text transition-colors">{{ link.label }}</a>
         {% endfor %}
         <a href="{{ HOMES_URL }}" class="hover:text-gold-text transition-colors">Homes</a>
       </nav>
@@ -39,7 +39,7 @@
 
     <nav x-show="open" x-cloak class="md:hidden border-t border-line px-4 py-3 flex flex-col gap-3 text-sm font-medium">
       {% for link in NAV_LINKS %}
-        <a href="{% url link.url %}" @click="close">{{ link.label }}</a>
+        <a href="{% if link.external %}{{ link.external }}{% else %}{% url link.url %}{% endif %}" @click="close">{{ link.label }}</a>
       {% endfor %}
       <a href="{{ HOMES_URL }}">Homes</a>
     </nav>
@@ -64,7 +64,7 @@
         <h4 class="font-mono text-xs uppercase tracking-wide text-gold mb-3">Explore</h4>
         <ul class="space-y-2 text-sm text-paper/80">
           {% for link in NAV_LINKS %}
-            <li><a href="{% url link.url %}" class="hover:text-gold">{{ link.label }}</a></li>
+            <li><a href="{% if link.external %}{{ link.external }}{% else %}{% url link.url %}{% endif %}" class="hover:text-gold">{{ link.label }}</a></li>
           {% endfor %}
         </ul>
       </div>

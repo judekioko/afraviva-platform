@@ -16,10 +16,11 @@ if settings.ADMIN_REQUIRE_2FA:
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("enquiries/", include("enquiries.urls")),
-    path("media/", include("media_hub.urls")),
-    path("farms/", include("farms_hub.urls")),
     path("", include("corporate.urls")),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Uploaded images (team photos here; media/farm cover images on their own
+# subdomains via urls_media.py/urls_farms.py) — served directly rather than
+# gated behind DEBUG, since there's no separate static-file server in front
+# of this small deployment.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

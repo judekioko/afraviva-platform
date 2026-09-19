@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # serves /static/ with DEBUG=False, no separate web-server config needed
     "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -111,6 +112,21 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    # The manifest variant requires a collectstatic run to exist (it looks up
+    # hashed filenames from staticfiles.json) — fine in production, where
+    # passenger_wsgi.py always runs collectstatic at startup, but it breaks
+    # local dev/tests with no build step. Plain WhiteNoiseStorage still gets
+    # served correctly by the middleware either way.
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            if not DEBUG
+            else "django.contrib.staticfiles.storage.StaticFilesStorage"
+        )
+    },
+}
 
 MEDIA_URL = "uploads/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"

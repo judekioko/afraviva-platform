@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
 from django.utils.text import slugify
 
 from corporate.validators import validate_image_upload
@@ -38,4 +37,8 @@ class FarmUpdate(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("farms_hub:detail", kwargs={"slug": self.slug})
+        # Always the real subdomain, not a local reverse() — this model's
+        # detail page only exists there, and this URL gets rendered both
+        # from farms.afraviva.com's own pages and from afraviva.com's
+        # homepage teasers, where farms_hub isn't in the urlconf at all.
+        return f"https://farms.afraviva.com/{self.slug}/"

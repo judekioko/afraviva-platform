@@ -28,8 +28,8 @@
     accelerate startups and invest in sectors that uplift lives — delivering sustainability and success.
   </p>
   <div class="flex justify-center gap-4 flex-wrap mt-8 font-mono text-sm uppercase tracking-wide">
-    <a href="{% url 'farms_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Farms</a>
-    <a href="{% url 'media_hub:list' %}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Media</a>
+    <a href="{{ FARMS_SITE_URL }}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Farms</a>
+    <a href="{{ MEDIA_SITE_URL }}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Media</a>
     <a href="{{ HOMES_URL }}" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text transition-all hover:-translate-y-0.5">AfraViva Homes</a>
   </div>
 </section>
@@ -70,7 +70,7 @@
     <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Media</h2>
   </div>
   <div class="flex items-baseline justify-end mb-6">
-    <a href="{% url 'media_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
+    <a href="{{ MEDIA_SITE_URL }}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <div class="grid gap-6 md:grid-cols-3">
     {% for post in media_teasers %}
@@ -97,7 +97,7 @@
     <h2 class="font-serif text-2xl font-semibold text-forest">From AfraViva Farms</h2>
   </div>
   <div class="flex items-baseline justify-end mb-6">
-    <a href="{% url 'farms_hub:list' %}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
+    <a href="{{ FARMS_SITE_URL }}" class="text-sm font-mono text-gold-text hover:text-gold">View all →</a>
   </div>
   <div class="grid gap-6 md:grid-cols-3">
     {% for update in farm_teasers %}
