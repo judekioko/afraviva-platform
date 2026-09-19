@@ -4,7 +4,7 @@ This file lives in its own small "Application root" (a cPanel Python App
 requirement — each app needs a distinct root), but it reuses the exact same
 codebase, venv-installed packages and database as the main afraviva.com app.
 It does NOT run migrate/collectstatic itself — the main app's
-passenger_wsgi.py already does that against the same database.
+app.py already does that against the same database.
 """
 
 import os
