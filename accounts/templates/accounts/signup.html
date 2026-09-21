@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Request staff access — AfraViva{% endblock %}
+{% block meta_description %}Request admin access to the AfraViva content dashboard.{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto px-4 py-16">
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">Staff access</p>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">Request an account</h1>
+  <p class="text-ink-soft mb-8">
+    Enter your name and email to request access to the AfraViva admin dashboard. A super admin
+    will review your request — you'll get an email with instructions to set your password once approved.
+  </p>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <p class="text-rust text-sm">{{ form.non_field_errors }}</p>
+    {% endif %}
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1" for="{{ form.full_name.id_for_label }}">Full name</label>
+      {{ form.full_name }}
+      {% if form.full_name.errors %}<p class="text-rust text-xs mt-1">{{ form.full_name.errors|striptags }}</p>{% endif %}
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1" for="{{ form.email.id_for_label }}">Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}<p class="text-rust text-xs mt-1">{{ form.email.errors|striptags }}</p>{% endif %}
+    </div>
+
+    <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px;">
+      <label for="{{ form.hp_website.id_for_label }}">Website</label>
+      {{ form.hp_website }}
+    </div>
+
+    <button type="submit" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">
+      Request access
+    </button>
+  </form>
+</section>
+{% endblock %}

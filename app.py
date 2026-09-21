@@ -32,6 +32,11 @@ try:
 except Exception:
     logger.exception("manage.py collectstatic failed at startup")
 
+try:
+    call_command("bootstrap_admin", verbosity=0)
+except Exception:
+    logger.exception("bootstrap_admin failed at startup")
+
 from django.core.wsgi import get_wsgi_application  # noqa: E402
 
 application = get_wsgi_application()

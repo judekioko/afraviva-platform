@@ -28,6 +28,7 @@ if not DEBUG and SECRET_KEY == _INSECURE_DEFAULT_KEY:
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 INSTALLED_APPS = [
+    "unfold",  # must come before django.contrib.admin to override its templates
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "django_otp",
     "django_otp.plugins.otp_totp",
     "axes",
+    "accounts",
     "corporate",
     "media_hub",
     "farms_hub",
@@ -46,12 +48,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # serves /static/ with DEBUG=False, no separate web-server config needed
+    "accounts.middleware.AdminCSPMiddleware",  # must stay before CSPMiddleware — see its docstring
     "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_otp.middleware.OTPMiddleware",
+    "accounts.middleware.PasswordExpiryMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "axes.middleware.AxesMiddleware",  # must stay last
@@ -202,3 +206,78 @@ ENQUIRY_NOTIFY_TO = env.list("ENQUIRY_NOTIFY_TO", default=["kiokoitdev@afraviva.
 # uses @login_required/LoginRequiredMixin today, but keep this correct rather
 # than dangling in case a future staff-only view (non-admin) needs it.
 LOGIN_URL = "/admin/login/"
+
+# --- Admin theme (django-unfold) — AfraViva brand colors, from tailwind.config.js ---
+from django.templatetags.static import static as _static  # noqa: E402
+from django.urls import reverse_lazy as _reverse_lazy  # noqa: E402
+
+UNFOLD = {
+    "SITE_TITLE": "AfraViva Admin",
+    "SITE_HEADER": "AfraViva",
+    "SITE_URL": "/",
+    "SITE_ICON": lambda request: _static("img/afraviva-logo.png"),
+    "SITE_LOGO": lambda request: _static("img/afraviva-logo.png"),
+    "SITE_SYMBOL": "public",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "LOGIN": {"image": lambda request: _static("img/afraviva-logo.png")},
+    "COLORS": {
+        # forest (#2C4A3B) as primary, gold (#B98A46) as accent — matches
+        # tailwind.config.js so the admin doesn't look like a different product.
+        "primary": {
+            "50": "240 245 242", "100": "214 227 221", "200": "179 202 191",
+            "300": "138 174 158", "400": "94 141 122", "500": "44 74 59",
+            "600": "39 65 52", "700": "27 47 38", "800": "20 35 28",
+            "900": "14 25 20", "950": "8 15 12",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "navigation": [
+            {
+                "title": "Content",
+                "separator": True,
+                "items": [
+                    {"title": "Site settings", "icon": "settings", "link": _reverse_lazy("admin:corporate_sitesettings_change", args=[1])},
+                    {"title": "Nav links", "icon": "menu", "link": _reverse_lazy("admin:corporate_navlink_changelist")},
+                    {"title": "Social links", "icon": "share", "link": _reverse_lazy("admin:corporate_sociallink_changelist")},
+                    {"title": "Hero slides", "icon": "auto_awesome_motion", "link": _reverse_lazy("admin:corporate_heroslide_changelist")},
+                    {"title": "Service cards", "icon": "design_services", "link": _reverse_lazy("admin:corporate_servicecard_changelist")},
+                    {"title": "Partner cards", "icon": "handshake", "link": _reverse_lazy("admin:corporate_partnercard_changelist")},
+                    {"title": "Vision pillars", "icon": "flag", "link": _reverse_lazy("admin:corporate_visionpillar_changelist")},
+                    {"title": "About cards", "icon": "info", "link": _reverse_lazy("admin:corporate_aboutcard_changelist")},
+                    {"title": "ThrivePoint publications", "icon": "article", "link": _reverse_lazy("admin:corporate_insightpublication_changelist")},
+                    {"title": "Office locations", "icon": "location_on", "link": _reverse_lazy("admin:corporate_officelocation_changelist")},
+                    {"title": "Page SEO", "icon": "search", "link": _reverse_lazy("admin:corporate_pageseo_changelist")},
+                    {"title": "FAQ", "icon": "help", "link": _reverse_lazy("admin:corporate_faqitem_changelist")},
+                    {"title": "Team members", "icon": "groups", "link": _reverse_lazy("admin:corporate_teammember_changelist")},
+                ],
+            },
+            {
+                "title": "Media & Farms",
+                "separator": True,
+                "items": [
+                    {"title": "Media posts", "icon": "movie", "link": _reverse_lazy("admin:media_hub_mediapost_changelist")},
+                    {"title": "Farm updates", "icon": "agriculture", "link": _reverse_lazy("admin:farms_hub_farmupdate_changelist")},
+                    {"title": "Farm categories", "icon": "category", "link": _reverse_lazy("admin:farms_hub_farmcategory_changelist")},
+                ],
+            },
+            {
+                "title": "Enquiries",
+                "separator": True,
+                "items": [
+                    {"title": "Enquiries", "icon": "mail", "link": _reverse_lazy("admin:enquiries_enquiry_changelist")},
+                ],
+            },
+            {
+                "title": "Staff & access",
+                "separator": True,
+                "items": [
+                    {"title": "Signup requests", "icon": "how_to_reg", "link": _reverse_lazy("admin:accounts_signuprequest_changelist")},
+                    {"title": "Users", "icon": "person", "link": _reverse_lazy("admin:auth_user_changelist")},
+                    {"title": "Groups", "icon": "group", "link": _reverse_lazy("admin:auth_group_changelist")},
+                ],
+            },
+        ],
+    },
+}

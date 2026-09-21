@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 from django.views.static import serve
 
 if settings.ADMIN_REQUIRE_2FA:
@@ -14,7 +15,16 @@ if settings.ADMIN_REQUIRE_2FA:
     admin.site.__class__ = OTPAdminSite
 
 urlpatterns = [
+    # Bare name (not namespaced under admin/accounts) so django-unfold's own
+    # login template picks it up automatically for its "Forgotten your
+    # password?" link — see venv .../unfold/templates/admin/login.html.
+    path(
+        "admin/password_reset/",
+        RedirectView.as_view(pattern_name="accounts:password_reset", permanent=False),
+        name="admin_password_reset",
+    ),
     path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),
     path("enquiries/", include("enquiries.urls")),
     path("", include("corporate.urls")),
 ]
