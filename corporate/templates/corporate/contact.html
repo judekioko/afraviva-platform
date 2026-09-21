@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Contact — AfraViva{% endblock %}
-{% block meta_description %}Get in touch with AfraViva — offices in Nairobi (Kenya) and Kampala (Uganda).{% endblock %}
+{% block title %}{{ PAGE_SEO.contact.title|default:"Contact — AfraViva" }}{% endblock %}
+{% block meta_description %}{{ PAGE_SEO.contact.meta_description|default:"Get in touch with AfraViva." }}{% endblock %}
 
 {% block content %}
 <section class="max-w-4xl mx-auto px-4 py-16">
@@ -15,18 +15,20 @@
     </div>
 
     <div class="space-y-6">
-      <div>
-        <p class="font-mono text-xs uppercase tracking-wide text-muted mb-1">Nairobi HQ</p>
-        <p class="text-ink-soft">St. Joseph Studio, Covenant Road, off Ngong Road<br>Past Dagoretti Corner, Nairobi, Kenya</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=-1.3016022413838024,36.7544249110189" target="_blank" rel="noopener" class="text-sm text-gold-text hover:text-gold">View on Google Maps →</a>
-      </div>
+      {% for office in offices %}
+        <div>
+          <p class="font-mono text-xs uppercase tracking-wide text-muted mb-1">{{ office.name }}</p>
+          <p class="text-ink-soft">{{ office.address|linebreaksbr }}</p>
+          {% if office.maps_url %}<a href="{{ office.maps_url }}" target="_blank" rel="noopener" class="text-sm text-gold-text hover:text-gold">View on Google Maps →</a>{% endif %}
+        </div>
+      {% endfor %}
       <div>
         <p class="font-mono text-xs uppercase tracking-wide text-muted mb-1">Phone</p>
-        <p class="text-ink-soft">Kenya: +254 705 837629<br>Uganda: +256 392 964978</p>
+        <p class="text-ink-soft">{{ SITE.contact_phone_lines|linebreaksbr }}</p>
       </div>
       <div>
         <p class="font-mono text-xs uppercase tracking-wide text-muted mb-1">Email</p>
-        <p class="text-ink-soft">Admin@afraviva.com</p>
+        <p class="text-ink-soft">{{ SITE.contact_email }}</p>
       </div>
     </div>
   </div>

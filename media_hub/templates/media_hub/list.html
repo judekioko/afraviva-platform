@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Media — AfraViva{% endblock %}
-{% block meta_description %}AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom.{% endblock %}
+{% block title %}{{ PAGE_SEO.media_list.title|default:"Media — AfraViva" }}{% endblock %}
+{% block meta_description %}{{ PAGE_SEO.media_list.meta_description|default:"AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom." }}{% endblock %}
 
 {% block content %}
 <section class="max-w-6xl mx-auto px-4 py-16">

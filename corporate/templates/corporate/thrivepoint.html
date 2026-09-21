@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}ThrivePoint Insights — AfraViva{% endblock %}
-{% block meta_description %}Unrivaled insights from AfraViva on Africa's future — reports, guides and trends on African business growth.{% endblock %}
+{% block title %}{{ PAGE_SEO.thrivepoint.title|default:"ThrivePoint Insights — AfraViva" }}{% endblock %}
+{% block meta_description %}{{ PAGE_SEO.thrivepoint.meta_description|default:"Unrivaled insights from AfraViva on Africa's future — reports, guides and trends on African business growth." }}{% endblock %}
 
 {% block content %}
 <section class="max-w-5xl mx-auto px-4 py-16">
@@ -8,25 +8,24 @@
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-10">Unrivaled insights from AfraViva on Africa's future</h1>
 
   <div class="grid gap-6 md:grid-cols-3">
-    <div class="border border-line rounded p-6 bg-paper-alt">
-      <p class="font-mono text-xs uppercase text-gold-text mb-3">Report · 2025</p>
-      <h2 class="font-serif text-lg font-semibold text-ink mb-2">African Business Growth Report 2025</h2>
-      <p class="text-sm text-muted">Strategies that redefine African markets.</p>
-    </div>
-    <div class="border border-line rounded p-6 bg-paper-alt">
-      <p class="font-mono text-xs uppercase text-gold-text mb-3">Guide · 2025</p>
-      <h2 class="font-serif text-lg font-semibold text-ink mb-2">SME Development Guide 2025</h2>
-      <p class="text-sm text-muted">Empowering the backbone of Africa's economy.</p>
-    </div>
-    <div class="border border-line rounded p-6 bg-paper-alt">
-      <p class="font-mono text-xs uppercase text-gold-text mb-3">Trends · 2025</p>
-      <h2 class="font-serif text-lg font-semibold text-ink mb-2">Market Expansion Trends 2025</h2>
-      <p class="text-sm text-muted">Where opportunity meets innovation.</p>
-    </div>
+    {% for insight in insights %}
+      <div class="border border-line rounded p-6 bg-paper-alt">
+        <p class="font-mono text-xs uppercase text-gold-text mb-3">{{ insight.category_label }}{% if insight.date_label %} · {{ insight.date_label }}{% endif %}</p>
+        <h2 class="font-serif text-lg font-semibold text-ink mb-2">{{ insight.title }}</h2>
+        <p class="text-sm text-muted">{{ insight.summary }}</p>
+        {% if insight.file %}
+          <a href="{{ insight.file.url }}" class="text-sm text-gold-text hover:text-gold mt-3 inline-block">Download →</a>
+        {% elif insight.external_url %}
+          <a href="{{ insight.external_url }}" class="text-sm text-gold-text hover:text-gold mt-3 inline-block" target="_blank" rel="noopener">Read more →</a>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p class="text-muted text-sm">Nothing published yet.</p>
+    {% endfor %}
   </div>
 
-  <p class="text-xs text-muted mt-10 font-mono">
-    Full report content and downloads will be added once migrated from the current site.
-  </p>
+  {% if SITE.thrivepoint_intro %}
+    <p class="text-xs text-muted mt-10 font-mono">{{ SITE.thrivepoint_intro }}</p>
+  {% endif %}
 </section>
 {% endblock %}

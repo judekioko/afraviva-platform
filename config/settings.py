@@ -141,6 +141,9 @@ CONTENT_SECURITY_POLICY = {
         "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         "font-src": ["'self'", "https://fonts.gstatic.com"],
         "script-src": ["'self'"],
+        # Lets admin-entered YouTube/Vimeo links (MediaPost.video_url) embed —
+        # self-hosted video files don't need this, they play via <video src>.
+        "frame-src": ["'self'", "https://www.youtube-nocookie.com", "https://player.vimeo.com"],
         "frame-ancestors": ["'none'"],
     },
 }

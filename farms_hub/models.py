@@ -5,20 +5,34 @@ from django.utils.text import slugify
 from corporate.validators import validate_image_upload
 
 
-class FarmUpdate(models.Model):
-    CATEGORY_CHOICES = [
-        ("crop", "Crop"),
-        ("livestock", "Livestock"),
-        ("infrastructure", "Infrastructure"),
-        ("community", "Community"),
-    ]
+class FarmCategory(models.Model):
+    name = models.CharField(max_length=60)
+    slug = models.SlugField(max_length=60, unique=True, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    published = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name_plural = "Farm categories"
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
+class FarmUpdate(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     body = models.TextField()
     cover_image = models.ImageField(upload_to="farm_updates/", blank=True, null=True, validators=[validate_image_upload])
     location = models.CharField(max_length=120, blank=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default="crop")
+    category = models.ForeignKey(
+        FarmCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="updates",
+    )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     published_at = models.DateTimeField(blank=True, null=True)
     is_published = models.BooleanField(default=False)

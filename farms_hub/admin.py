@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import FarmUpdate
+from .models import FarmCategory, FarmUpdate
+
+
+@admin.register(FarmCategory)
+class FarmCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "order", "published")
+    list_editable = ("order", "published")
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(FarmUpdate)

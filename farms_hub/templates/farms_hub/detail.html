@@ -9,7 +9,7 @@
     <img src="{% static 'img/afraviva-logo.png' %}" alt="AfraViva" style="height:16px; width:auto;">
     <span class="font-mono text-xs uppercase tracking-wide text-gold-text">AfraViva Farms</span>
   </div>
-  <p class="font-mono text-xs text-muted mt-2">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %} · {{ update.published_at|date:"F j, Y" }}</p>
+  <p class="font-mono text-xs text-muted mt-2">{% if update.category %}{{ update.category.name }}{% endif %}{% if update.location %} · {{ update.location }}{% endif %} · {{ update.published_at|date:"F j, Y" }}</p>
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mt-2 mb-8">{{ update.title }}</h1>
   {% if update.cover_image %}
     <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full rounded mb-8">

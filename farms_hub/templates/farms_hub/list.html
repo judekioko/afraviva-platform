@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Farms — AfraViva{% endblock %}
+{% block title %}{{ PAGE_SEO.farms_list.title|default:"Farms — AfraViva" }}{% endblock %}
+{% block meta_description %}{{ PAGE_SEO.farms_list.meta_description|default:"AfraViva Farms pilots farm-to-market platforms and hands-on training for family and community farms across Kenya and Uganda." }}{% endblock %}
 
 {% block content %}
 <section class="max-w-6xl mx-auto px-4 py-16">
@@ -15,8 +16,8 @@
 
   <div class="flex gap-3 mb-10 font-mono text-xs uppercase flex-wrap">
     <a href="{% url 'farms_hub:list' %}" class="px-3 py-1.5 rounded border {% if not active_category %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">All</a>
-    {% for value, label in categories %}
-      <a href="?category={{ value }}" class="px-3 py-1.5 rounded border {% if active_category == value %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">{{ label }}</a>
+    {% for cat in categories %}
+      <a href="?category={{ cat.slug }}" class="px-3 py-1.5 rounded border {% if active_category == cat.slug %}border-gold text-gold-text{% else %}border-line text-muted{% endif %}">{{ cat.name }}</a>
     {% endfor %}
   </div>
 
@@ -27,7 +28,7 @@
           <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full h-40 object-cover">
         {% endif %}
         <div class="p-5">
-          <p class="font-mono text-xs text-muted mb-1">{{ update.get_category_display }}{% if update.location %} · {{ update.location }}{% endif %}</p>
+          <p class="font-mono text-xs text-muted mb-1">{% if update.category %}{{ update.category.name }}{% endif %}{% if update.location %} · {{ update.location }}{% endif %}</p>
           <h2 class="font-serif text-lg font-semibold text-ink">{{ update.title }}</h2>
           <p class="text-sm text-muted mt-2 line-clamp-3">{{ update.body|truncatewords:24 }}</p>
         </div>

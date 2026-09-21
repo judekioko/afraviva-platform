@@ -10,7 +10,13 @@
   </div>
   <p class="font-mono text-xs text-muted mt-2">{{ post.published_at|date:"F j, Y" }}{% if post.author %} · {{ post.author.get_full_name|default:post.author.username }}{% endif %}</p>
   <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mt-2 mb-8">{{ post.title }}</h1>
-  {% if post.cover_image %}
+  {% if post.video_file %}
+    <video src="{{ post.video_file.url }}" controls class="w-full rounded mb-8" {% if post.cover_image %}poster="{{ post.cover_image.url }}"{% endif %}></video>
+  {% elif post.video_embed_url %}
+    <div class="mb-8 rounded overflow-hidden" style="aspect-ratio:16/9;">
+      <iframe src="{{ post.video_embed_url }}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  {% elif post.cover_image %}
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full rounded mb-8">
   {% endif %}
   <div class="prose text-ink-soft leading-relaxed whitespace-pre-line">{{ post.body }}</div>

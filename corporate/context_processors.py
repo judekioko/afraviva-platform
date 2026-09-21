@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from .models import NavLink, OfficeLocation, PageSEO, SiteSettings, SocialLink
+
 
 def admin_idle_timeout(request):
     return {"ADMIN_IDLE_TIMEOUT_SECONDS": settings.ADMIN_IDLE_TIMEOUT_SECONDS}
@@ -26,45 +28,40 @@ _CORPORATE_PATHS = {
 
 
 def site_nav(request):
-    """Global nav config, shared across every template — including the
-    Media hub and Farms hub, which now live on their own subdomains
-    (media.afraviva.com, afravivamedia.com, farms.afraviva.com) with their
-    own urlconf that doesn't include the corporate app's URLs at all.
+    """Global nav config + sitewide settings, shared across every template —
+    including the Media hub and Farms hub, which now live on their own
+    subdomains (media.afraviva.com, afravivamedia.com, farms.afraviva.com)
+    with their own urlconf that doesn't include the corporate app's URLs at
+    all.
 
     On afraviva.com itself, corporate links resolve normally with
-    {% url %}. Everywhere else, they — and the "Home" logo link — become
-    plain absolute links back to afraviva.com, via the "external" key
-    NAV_LINKS already supports (the same pattern Homes/Media/Farms use from
-    the main site).
+    {% url %}. Everywhere else, they become plain absolute links back to
+    afraviva.com, via NavLink.external_url — the same pattern Media/Farms/
+    Homes links already use.
+
+    Nav links, social links, office details and the rest of the sitewide
+    copy below all come from the admin (see corporate/models.py) instead of
+    being hardcoded, so non-technical staff can edit them without touching code.
     """
     on_main_site = request.get_host().split(":")[0] not in SUBDOMAIN_HOSTS
+    site = SiteSettings.load()
 
-    def corp_link(label, name):
-        if on_main_site:
-            return {"label": label, "url": f"corporate:{name}"}
-        return {"label": label, "external": CORPORATE_SITE_URL + _CORPORATE_PATHS[name]}
+    def resolve_link(link):
+        if link.page:
+            if on_main_site:
+                return {"label": link.label, "url": f"corporate:{link.page}"}
+            return {"label": link.label, "external": CORPORATE_SITE_URL + _CORPORATE_PATHS[link.page]}
+        return {"label": link.label, "external": link.external_url}
 
     return {
-        "NAV_LINKS": [
-            corp_link("Home", "home"),
-            corp_link("About", "about"),
-            corp_link("Services", "services"),
-            {"label": "Media", "external": "https://media.afraviva.com"},
-            {"label": "Farms", "external": "https://farms.afraviva.com"},
-            corp_link("ThrivePoint Insights", "thrivepoint"),
-            corp_link("FAQ", "faq"),
-            corp_link("Contact", "contact"),
-        ],
+        "NAV_LINKS": [resolve_link(link) for link in NavLink.objects.filter(published=True)],
         "ON_MAIN_SITE": on_main_site,
         "HOME_HREF": CORPORATE_SITE_URL + "/",
-        "HOMES_URL": "https://homes.afraviva.com",
-        "MEDIA_SITE_URL": "https://media.afraviva.com",
-        "FARMS_SITE_URL": "https://farms.afraviva.com",
-        "MEDIA_SOCIAL_LINKS": [
-            {"label": "Facebook", "url": "https://www.facebook.com/share/14iSWn76ZEr/"},
-            {"label": "Instagram", "url": "https://www.instagram.com/afraviva_media"},
-            {"label": "TikTok", "url": "https://www.tiktok.com/@afravivamedia"},
-            {"label": "YouTube", "url": "https://www.youtube.com/@AfravivaMedia"},
-            {"label": "X", "url": "https://x.com/AfravivaMedia"},
-        ],
+        "HOMES_URL": site.homes_url,
+        "MEDIA_SITE_URL": site.media_url,
+        "FARMS_SITE_URL": site.farms_url,
+        "MEDIA_SOCIAL_LINKS": SocialLink.objects.filter(published=True),
+        "SITE": site,
+        "OFFICE_LOCATIONS": OfficeLocation.objects.filter(published=True),
+        "PAGE_SEO": {seo.page: seo for seo in PageSEO.objects.all()},
     }
