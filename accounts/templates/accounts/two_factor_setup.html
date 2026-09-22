@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Two-factor authentication — AfraViva Admin{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto px-4 py-16">
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-text mb-4">Account security</p>
+
+  {% if confirmed %}
+    <h1 class="font-serif text-3xl font-semibold text-forest mb-4">Two-factor authentication is on</h1>
+    {% if just_confirmed %}
+      <p class="text-ink-soft mb-8">
+        Your authenticator app is now linked to this account. From now on, logging in to the admin
+        will also ask for a 6-digit code from that app.
+      </p>
+    {% else %}
+      <p class="text-ink-soft mb-8">
+        This account already has an authenticator app linked. If you've lost access to it, ask a
+        super admin to remove the device from Admin &rsaquo; TOTP devices so you can set up a new one.
+      </p>
+    {% endif %}
+    <a href="/admin/" class="inline-block bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">
+      Back to admin
+    </a>
+  {% else %}
+    <h1 class="font-serif text-3xl font-semibold text-forest mb-4">Set up two-factor authentication</h1>
+    <p class="text-ink-soft mb-6">
+      Scan this code with an authenticator app (Google Authenticator, Authy, 1Password, etc.), then
+      enter the 6-digit code it shows to confirm.
+    </p>
+
+    <div class="bg-white border border-ink-soft/20 rounded p-4 mb-4 flex justify-center">
+      <img src="{{ qr_data_uri }}" alt="QR code to scan with your authenticator app" width="220" height="220">
+    </div>
+
+    <details class="mb-6 text-sm text-ink-soft">
+      <summary class="cursor-pointer font-medium text-ink">Can't scan? Enter the key manually</summary>
+      <p class="mt-2 font-mono text-xs break-all bg-paper-alt/50 border border-ink-soft/20 rounded p-3">{{ secret }}</p>
+    </details>
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      {% if error %}<p class="text-rust text-sm">{{ error }}</p>{% endif %}
+      <div>
+        <label class="block text-sm font-medium text-ink mb-1" for="id_token">6-digit code</label>
+        <input type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6"
+               id="id_token" name="token" required
+               class="w-full border border-ink-soft/30 rounded px-3 py-2 text-lg tracking-widest">
+      </div>
+      <button type="submit" class="bg-gold text-forest-dark font-medium px-6 py-3 rounded hover:bg-gold-text hover:text-paper transition-colors">
+        Confirm and enable
+      </button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

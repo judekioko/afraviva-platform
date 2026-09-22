@@ -7,6 +7,7 @@ app_name = "accounts"
 
 urlpatterns = [
     path("signup/", views.signup_request, name="signup"),
+    path("two-factor/setup/", views.two_factor_setup, name="2fa_setup"),
 
     # A logged-in staff member changing their password voluntarily (or
     # because the password-expiry middleware sent them here).

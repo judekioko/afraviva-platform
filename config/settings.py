@@ -181,6 +181,7 @@ if not DEBUG:
 # every current staff account has enrolled a device under Admin > TOTP devices
 # — enabling it first would lock out anyone without one, with no self-recovery.
 ADMIN_REQUIRE_2FA = env.bool("ADMIN_REQUIRE_2FA", default=False)
+OTP_TOTP_ISSUER = "AfraViva"
 
 # Auto-logout staff/admin sessions after inactivity, like a banking system.
 # SESSION_SAVE_EVERY_REQUEST makes the expiry a sliding window from the last
@@ -276,6 +277,7 @@ UNFOLD = {
                     {"title": "Signup requests", "icon": "how_to_reg", "link": _reverse_lazy("admin:accounts_signuprequest_changelist")},
                     {"title": "Users", "icon": "person", "link": _reverse_lazy("admin:auth_user_changelist")},
                     {"title": "Groups", "icon": "group", "link": _reverse_lazy("admin:auth_group_changelist")},
+                    {"title": "Set up 2FA (this account)", "icon": "verified_user", "link": _reverse_lazy("accounts:2fa_setup")},
                 ],
             },
         ],
