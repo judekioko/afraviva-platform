@@ -208,6 +208,12 @@ ENQUIRY_NOTIFY_TO = env.list("ENQUIRY_NOTIFY_TO", default=["kiokoitdev@afraviva.
 # than dangling in case a future staff-only view (non-admin) needs it.
 LOGIN_URL = "/admin/login/"
 
+# Without this, django.contrib.admin's login view falls back to Django's own
+# default of "/accounts/profile/" whenever someone logs in without a `next`
+# param (e.g. navigating straight to /admin/login/ instead of being bounced
+# there from a protected page) — a URL nothing in this project serves.
+LOGIN_REDIRECT_URL = "/admin/"
+
 # --- Admin theme (django-unfold) — AfraViva brand colors, from tailwind.config.js ---
 from django.templatetags.static import static as _static  # noqa: E402
 from django.urls import reverse_lazy as _reverse_lazy  # noqa: E402
