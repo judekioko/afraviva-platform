@@ -154,7 +154,16 @@ CONTENT_SECURITY_POLICY = {
 X_FRAME_OPTIONS = "DENY"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SECURE_REFERRER_POLICY = "same-origin"
+
+# "same-origin" strips the Referer header on every cross-origin request,
+# including the request the browser makes when loading a YouTube/Vimeo
+# <iframe src>. Without any referrer, YouTube's embed player can't validate
+# itself and fails with "Video player configuration error" (their error 153)
+# for every embedded video, not just restricted ones. strict-origin-when-
+# cross-origin still withholds the path/query from third parties — it only
+# sends the bare origin (https://media.afraviva.com) — so this keeps the
+# privacy intent while letting MediaPost.video_url embeds actually play.
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 # Cookie hardening. SameSite=Lax on both is Django's own default — made explicit
 # here so it can't drift if that default ever changes. CSRF_COOKIE_HTTPONLY is

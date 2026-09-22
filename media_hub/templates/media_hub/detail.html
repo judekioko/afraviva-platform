@@ -21,6 +21,19 @@
   {% endif %}
   <div class="prose text-ink-soft leading-relaxed whitespace-pre-line">{{ post.body }}</div>
 
+  {% if post.videos.all %}
+    <div class="mt-10 space-y-8">
+      {% for video in post.videos.all %}
+        {% if video.caption %}
+          <p class="font-mono text-xs uppercase tracking-wide text-muted mb-2">{{ video.caption }}</p>
+        {% endif %}
+        <div class="rounded overflow-hidden" style="aspect-ratio:16/9;">
+          <iframe src="{{ video.embed_url }}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
   <div class="mt-12 pt-6 border-t border-line">
     <p class="font-mono text-xs uppercase tracking-wide text-muted mb-3">Follow AfraViva Media</p>
     <div class="flex gap-4 flex-wrap font-mono text-base uppercase tracking-wide">

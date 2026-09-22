@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import MediaPost
+from .models import MediaPost, MediaVideo
+
+
+class MediaVideoInline(admin.TabularInline):
+    model = MediaVideo
+    extra = 1
+    fields = ("url", "caption", "order")
 
 
 @admin.register(MediaPost)
@@ -9,6 +15,7 @@ class MediaPostAdmin(admin.ModelAdmin):
     list_filter = ("is_published",)
     search_fields = ("title", "body")
     prepopulated_fields = {"slug": ("title",)}
+    inlines = [MediaVideoInline]
 
     @admin.display(boolean=True, description="Video")
     def has_video(self, obj):
