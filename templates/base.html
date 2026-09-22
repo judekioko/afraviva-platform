@@ -7,7 +7,7 @@
   <meta name="description" content="{% block meta_description %}AfraViva — Media, Homes and Farms, brands of AfricaNext Opportunities (ANO).{% endblock %}">
   <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
   {% load static %}
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/tailwind.build.css' %}">
   <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
@@ -18,11 +18,12 @@
   <header class="border-b border-line bg-paper sticky top-0 z-40" x-data="nav">
     <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
       <div class="flex items-center gap-3">
-        <a href="{% if ON_MAIN_SITE %}{% url 'corporate:home' %}{% else %}{{ HOME_HREF }}{% endif %}">
+        <a href="{% if ON_MAIN_SITE %}{% url 'corporate:home' %}{% else %}{{ HOME_HREF }}{% endif %}" class="flex items-center gap-2">
           {% include "_afraviva_logo.html" with size=32 wordmark_size="text-xl" %}
+          <span class="hidden sm:inline font-sans font-extrabold text-lg text-cocoa">Afra<span class="text-gold text-xl">V</span><span class="text-rust">iva</span></span>
         </a>
         <span class="inline-block h-4 sm:h-6 w-px bg-line"></span>
-        <span class="inline font-mono text-[8px] sm:text-sm font-bold uppercase tracking-tight sm:tracking-widest text-forest leading-tight"><span class="text-[10px] sm:text-lg">A</span>frica<span class="text-[10px] sm:text-lg">N</span>ext <span class="text-[10px] sm:text-lg">O</span>pportunities</span>
+        <span class="inline font-mono text-[8px] sm:text-sm font-bold uppercase tracking-tight sm:tracking-widest text-cocoa leading-tight"><span class="text-[10px] sm:text-lg text-rust">A</span>frica<span class="text-[10px] sm:text-lg text-rust">N</span>ext <span class="text-[10px] sm:text-lg text-rust">O</span>pportunities</span>
       </div>
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -58,9 +59,9 @@
         </div>
         <p class="text-sm text-paper/70">{{ SITE.footer_blurb }}</p>
         {% if MEDIA_SOCIAL_LINKS %}
-          <div class="flex gap-3 flex-wrap mt-4 font-mono text-xs uppercase tracking-wide">
+          <div class="flex gap-3 flex-wrap mt-4 font-mono text-sm uppercase tracking-wide">
             {% for social in MEDIA_SOCIAL_LINKS %}
-              <a href="{{ social.url }}" target="_blank" rel="noopener" class="text-paper/70 hover:text-gold">{{ social.label }}</a>
+              <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-4 py-2 border border-paper/25 rounded text-paper/80 hover:border-gold hover:text-gold transition-colors">{{ social.label }}</a>
             {% endfor %}
           </div>
         {% endif %}
