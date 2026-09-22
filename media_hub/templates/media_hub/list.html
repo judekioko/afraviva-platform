@@ -7,16 +7,16 @@
   <div class="mb-6">
     {% include "_afraviva_logo.html" with size=40 subtitle="Media" wordmark_size="text-2xl" %}
   </div>
-  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">Latest from the desk</h1>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">AfraViva Media — promoting Life, Faith and Family and Faith with and for Africa's Youth</h1>
   <p class="text-ink-soft max-w-2xl mb-6">
     A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content
     on faith, family and religious freedom, relevant to contemporary African society.
   </p>
   <p class="text-sm text-muted mb-6">Media partner: <span class="text-ink font-medium">LifeSiteNews</span> — an internet news service established in Canada in 1997, dedicated to issues of life, family, and faith.</p>
 
-  <div class="flex gap-3 flex-wrap mb-10 font-mono text-sm uppercase tracking-wide">
+  <div class="flex gap-4 flex-wrap mb-10 font-mono text-base uppercase tracking-wide">
     {% for social in MEDIA_SOCIAL_LINKS %}
-      <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
+      <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-6 py-3 border-2 border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
     {% endfor %}
   </div>
 

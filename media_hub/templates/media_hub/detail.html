@@ -23,9 +23,9 @@
 
   <div class="mt-12 pt-6 border-t border-line">
     <p class="font-mono text-xs uppercase tracking-wide text-muted mb-3">Follow AfraViva Media</p>
-    <div class="flex gap-3 flex-wrap font-mono text-sm uppercase tracking-wide">
+    <div class="flex gap-4 flex-wrap font-mono text-base uppercase tracking-wide">
       {% for social in MEDIA_SOCIAL_LINKS %}
-        <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-4 py-2 border border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
+        <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-6 py-3 border-2 border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
       {% endfor %}
     </div>
   </div>
