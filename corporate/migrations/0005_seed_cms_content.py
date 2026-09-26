@@ -174,7 +174,7 @@ PAGE_SEO = [
     ),
     (
         "thrivepoint", "ThrivePoint Insights — AfraViva",
-        "Unrivaled insights from AfraViva on Africa's future — reports, guides and trends on African "
+        "Sharp insights from AfraViva on Africa's future — reports, guides and trends on African "
         "business growth.",
     ),
     (
