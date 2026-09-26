@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors: {
         forest: { DEFAULT: "#2C4A3B", dark: "#1B2F26" },
-        gold: { DEFAULT: "#B98A46", text: "#8A6323" },
+        gold: { DEFAULT: "#B98A46", text: "#8A6323", light: "#CDAB7A" },
         rust: "#A8452C",
         cocoa: "#3E2A1B",
         paper: { DEFAULT: "#FBF9F2", alt: "#F1ECDC" },
