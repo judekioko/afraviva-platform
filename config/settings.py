@@ -201,7 +201,7 @@ EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
-ENQUIRY_NOTIFY_TO = env.list("ENQUIRY_NOTIFY_TO", default=["kiokoitdev@afraviva.com"])
+ENQUIRY_NOTIFY_TO = env.list("ENQUIRY_NOTIFY_TO", default=[EMAIL_HOST_USER] if EMAIL_HOST_USER else [])
 
 # Was pointed at a "/staff/login/" that was never built. Nothing in this project
 # uses @login_required/LoginRequiredMixin today, but keep this correct rather

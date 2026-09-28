@@ -10,7 +10,10 @@ app.py already does that against the same database.
 import os
 import sys
 
-MAIN_APP_DIR = "/home/dlapepda/afraviva-platform"
+# Path to the main app on the server. Set MAIN_APP_DIR in the cPanel app's
+# environment variables, or leave it unset to use ~/afraviva-platform
+# (Passenger runs as the account user, so ~ is that account's home directory).
+MAIN_APP_DIR = os.environ.get("MAIN_APP_DIR") or os.path.expanduser("~/afraviva-platform")
 sys.path.insert(0, MAIN_APP_DIR)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings_farms")
 
