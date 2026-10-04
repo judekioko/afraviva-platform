@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import FarmCategory, FarmUpdate
+from .models import FarmCategory, FarmPhoto, FarmUpdate
 
 
 @admin.register(FarmCategory)
@@ -10,12 +10,19 @@ class FarmCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+class FarmPhotoInline(admin.TabularInline):
+    model = FarmPhoto
+    extra = 1
+    fields = ("image", "caption", "order")
+
+
 @admin.register(FarmUpdate)
 class FarmUpdateAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "location", "author", "is_published", "published_at")
     list_filter = ("is_published", "category")
     search_fields = ("title", "body", "location")
     prepopulated_fields = {"slug": ("title",)}
+    inlines = [FarmPhotoInline]
 
     def save_model(self, request, obj, form, change):
         if not obj.author_id:

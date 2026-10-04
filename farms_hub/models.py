@@ -56,3 +56,16 @@ class FarmUpdate(models.Model):
         # from farms.afraviva.com's own pages and from afraviva.com's
         # homepage teasers, where farms_hub isn't in the urlconf at all.
         return f"https://farms.afraviva.com/{self.slug}/"
+
+
+class FarmPhoto(models.Model):
+    update = models.ForeignKey(FarmUpdate, on_delete=models.CASCADE, related_name="photos")
+    image = models.ImageField(upload_to="farm_photos/", validators=[validate_image_upload])
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.caption or f"Photo {self.pk}"

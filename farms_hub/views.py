@@ -19,5 +19,5 @@ def update_list(request):
 
 
 def update_detail(request, slug):
-    update = get_object_or_404(FarmUpdate.objects.select_related("category"), slug=slug, is_published=True)
+    update = get_object_or_404(FarmUpdate.objects.select_related("category").prefetch_related("photos"), slug=slug, is_published=True)
     return render(request, "farms_hub/detail.html", {"update": update})

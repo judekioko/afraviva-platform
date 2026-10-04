@@ -15,5 +15,20 @@
     <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full rounded mb-8">
   {% endif %}
   <div class="prose text-ink-soft leading-relaxed whitespace-pre-line">{{ update.body }}</div>
+  {% with photos=update.photos.all %}
+    {% if photos %}
+      <h2 class="font-serif text-2xl font-semibold text-forest mt-12 mb-6">From the farm</h2>
+      <div class="grid gap-4 grid-cols-2 md:grid-cols-3">
+        {% for photo in photos %}
+          <figure>
+            <a href="{{ photo.image.url }}" target="_blank" rel="noopener">
+              <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:update.title }}" loading="lazy" class="w-full aspect-[3/4] object-cover rounded hover:opacity-90 transition-opacity">
+            </a>
+            {% if photo.caption %}<figcaption class="text-xs text-muted mt-2">{{ photo.caption }}</figcaption>{% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
 </article>
 {% endblock %}
