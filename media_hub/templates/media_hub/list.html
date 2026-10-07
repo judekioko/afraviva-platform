@@ -1,25 +1,47 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ PAGE_SEO.media_list.title|default:"Media — AfraViva" }}{% endblock %}
 {% block meta_description %}{{ PAGE_SEO.media_list.meta_description|default:"AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom." }}{% endblock %}
 
 {% block content %}
+<style>
+  .media-hero { position: relative; overflow: hidden; background: #1B2F26; }
+  .media-hero__video, .media-hero__shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .media-hero__video { object-fit: cover; }
+  .media-hero__shade { background: linear-gradient(180deg, rgba(27, 47, 38, .58) 0%, rgba(27, 47, 38, .80) 100%); }
+  .media-hero__content { position: relative; }
+  .media-hero h1, .media-hero p, .media-hero span { color: #FBF9F2; }
+  .media-hero .media-hero__muted { color: rgba(251, 249, 242, .78); }
+  .media-hero__logo { display: inline-block; background: #FBF9F2; border-radius: 8px; padding: 6px 10px; }
+  .media-hero__social { color: #FBF9F2; border-color: rgba(251, 249, 242, .55); }
+  .media-hero__social:hover { color: #CDAB7A; border-color: #CDAB7A; }
+  @media (prefers-reduced-motion: reduce) { .media-hero__video { display: none; } .media-hero { background: #1B2F26 url("{% static 'img/media-hero-poster.jpg' %}") center / cover; } }
+</style>
+<section class="media-hero">
+  <video class="media-hero__video" autoplay muted loop playsinline preload="auto" poster="{% static 'img/media-hero-poster.jpg' %}" aria-hidden="true">
+    <source src="{% static 'video/media-hero.mp4' %}" type="video/mp4">
+  </video>
+  <div class="media-hero__shade"></div>
+  <div class="media-hero__content max-w-6xl mx-auto px-4 py-16 md:py-24">
+    <div class="mb-6 media-hero__logo">
+      {% include "_afraviva_logo.html" with size=40 subtitle="Media" wordmark_size="text-2xl" %}
+    </div>
+    <h1 class="font-serif text-3xl md:text-4xl font-semibold mb-4">AfraViva Media — promoting Life, Faith and Family and Faith with and for Africa's Youth</h1>
+    <p class="max-w-2xl mb-6">
+      A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content
+      on faith, family and religious freedom, relevant to contemporary African society.
+    </p>
+    <p class="text-sm mb-6 media-hero__muted">Media partner: <span class="font-medium">LifeSiteNews</span> — an internet news service established in Canada in 1997, dedicated to issues of life, family, and faith.</p>
+
+    <div class="flex gap-4 flex-wrap font-mono text-base uppercase tracking-wide">
+      {% for social in MEDIA_SOCIAL_LINKS %}
+        <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-6 py-3 border-2 rounded media-hero__social">{{ social.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 <section class="max-w-6xl mx-auto px-4 py-16">
-  <div class="mb-6">
-    {% include "_afraviva_logo.html" with size=40 subtitle="Media" wordmark_size="text-2xl" %}
-  </div>
-  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-4">AfraViva Media — promoting Life, Faith and Family and Faith with and for Africa's Youth</h1>
-  <p class="text-ink-soft max-w-2xl mb-6">
-    A pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content
-    on faith, family and religious freedom, relevant to contemporary African society.
-  </p>
-  <p class="text-sm text-muted mb-6">Media partner: <span class="text-ink font-medium">LifeSiteNews</span> — an internet news service established in Canada in 1997, dedicated to issues of life, family, and faith.</p>
-
-  <div class="flex gap-4 flex-wrap mb-10 font-mono text-base uppercase tracking-wide">
-    {% for social in MEDIA_SOCIAL_LINKS %}
-      <a href="{{ social.url }}" target="_blank" rel="noopener" class="px-6 py-3 border-2 border-line rounded text-forest hover:border-gold hover:text-gold-text">{{ social.label }}</a>
-    {% endfor %}
-  </div>
-
   <div class="grid gap-6 md:grid-cols-3">
     {% for post in page_obj %}
       <a href="{{ post.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
