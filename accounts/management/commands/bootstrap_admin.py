@@ -3,15 +3,19 @@
 There's no shell access on this hosting plan, so `createsuperuser` can't be
 run by hand, and (until at least one staff account exists) there's no way to
 send an invite email either. This command creates the account the first time
-it runs, and logs a fresh set-password link every time it runs — safe to
-leave wired into every app startup (like migrate/collectstatic in app.py):
-creating is idempotent, and re-logging a link for an existing account never
-touches its current password, it just gives a way to log the account in via
-the server's own log file without needing SMTP.
+it runs and logs a set-password link to the server's log file.
+
+After that it only logs a link on request: create an empty file named
+`admin-recovery` in the app's tmp/ folder (cPanel File Manager), restart the
+afraviva.com app, and the link appears in stderr.log; the file is deleted so
+it's a one-off. Logging a working takeover link on every restart meant anyone
+who could read the log could take over the admin account.
 """
 
 import logging
+from pathlib import Path
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.management.base import BaseCommand
@@ -21,6 +25,7 @@ from django.utils.http import urlsafe_base64_encode
 logger = logging.getLogger("passenger_wsgi")
 
 SUPERUSER_EMAIL = "judekioko15@gmail.com"
+RECOVERY_TRIGGER = Path(settings.BASE_DIR) / "tmp" / "admin-recovery"
 
 
 class Command(BaseCommand):
@@ -38,8 +43,14 @@ class Command(BaseCommand):
             user.set_unusable_password()
             user.save()
 
-        # Re-logged every restart on purpose — see module docstring. Doesn't
-        # touch user.password, so it never invalidates a password already set.
+        # Only for an account that has never set a password, or when someone
+        # with File Manager access asked for one — see module docstring.
+        # Doesn't touch user.password, so it never invalidates one already set.
+        recovery_requested = RECOVERY_TRIGGER.exists()
+        if user.has_usable_password() and not recovery_requested:
+            return
+        if recovery_requested:
+            RECOVERY_TRIGGER.unlink()
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
         link = f"https://afraviva.com/accounts/reset/{uid}/{token}/"

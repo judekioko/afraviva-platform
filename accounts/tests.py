@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.test import TestCase
@@ -116,3 +117,44 @@ class TwoFactorStatusTests(TestCase):
         response = self.client.get("/admin/auth/user/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Two-step login")
+
+
+class BootstrapAdminTests(TestCase):
+    def _run(self):
+        from django.core.management import call_command
+
+        with self.assertLogs("passenger_wsgi", level="WARNING") as logs:
+            call_command("bootstrap_admin")
+            logging.getLogger("passenger_wsgi").warning("end")
+        return [line for line in logs.output if "set-password link" in line]
+
+    def test_first_run_logs_a_link_for_the_new_account(self):
+        self.assertEqual(len(self._run()), 1)
+
+    def test_no_link_once_a_password_is_set(self):
+        from accounts.management.commands.bootstrap_admin import SUPERUSER_EMAIL
+
+        self._run()
+        user = get_user_model().objects.get(email=SUPERUSER_EMAIL)
+        user.set_password("a-real-password")
+        user.save()
+        self.assertEqual(self._run(), [])
+
+    def test_recovery_file_logs_one_link_and_is_removed(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+
+        from accounts.management.commands import bootstrap_admin
+
+        self._run()
+        user = get_user_model().objects.get(email=bootstrap_admin.SUPERUSER_EMAIL)
+        user.set_password("a-real-password")
+        user.save()
+        with tempfile.TemporaryDirectory() as tmp:
+            trigger = Path(tmp) / "admin-recovery"
+            trigger.touch()
+            with mock.patch.object(bootstrap_admin, "RECOVERY_TRIGGER", trigger):
+                self.assertEqual(len(self._run()), 1)
+                self.assertFalse(trigger.exists())
+                self.assertEqual(self._run(), [])
