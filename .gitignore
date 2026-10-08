@@ -7,3 +7,4 @@ staticfiles/
 mediafiles/
 node_modules/
 .pytest_cache/
+tmp/

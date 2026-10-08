@@ -7,12 +7,13 @@
 #   files (passenger_wsgi.py, uploads in mediafiles/, staticfiles/, logs) are
 #   left alone. (This host has no rsync.)
 # - afraviva.com restarts first and is woken with a request: its app.py runs
-#   migrate + collectstatic at startup, and the media/farms apps need the new
-#   static manifest before they render pages that reference new files.
+#   migrate + collectstatic once per deploy (keyed on tmp/deploy-id), and the
+#   media/farms apps need the new static manifest before they render pages
+#   that reference new files.
 deployment:
   tasks:
     - export APPDIR=$HOME/afraviva-platform
     - git archive --format=tar HEAD -- . ':!deploy' ':!.cpanel.yml' | tar -x -C $APPDIR
-    - mkdir -p $APPDIR/tmp && touch $APPDIR/tmp/restart.txt
+    - mkdir -p $APPDIR/tmp && git rev-parse HEAD > $APPDIR/tmp/deploy-id && touch $APPDIR/tmp/restart.txt
     - curl -s -o /dev/null --max-time 120 https://afraviva.com/ || true
     - for app in afravivamedia-app media-app farms-app; do mkdir -p $HOME/$app/tmp && touch $HOME/$app/tmp/restart.txt; done
