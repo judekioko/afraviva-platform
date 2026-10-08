@@ -1,9 +1,17 @@
 from django.core.paginator import Paginator
+from csp.decorators import csp_update
 from django.shortcuts import get_object_or_404, render
 
 from .models import MediaPost
 
 
+# The list page embeds TikTok's creator profile (media_hub/_tiktok_follow.html):
+# www.tiktok.com/embed.js redirects to the real script on TikTok's
+# ttwstatic.com CDN, which then renders the profile in a www.tiktok.com iframe.
+@csp_update({
+    "script-src": ["https://www.tiktok.com", "https://*.ttwstatic.com"],
+    "frame-src": ["https://www.tiktok.com"],
+})
 def post_list(request):
     posts = MediaPost.objects.filter(is_published=True)
     paginator = Paginator(posts, 9)

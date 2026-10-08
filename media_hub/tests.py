@@ -46,3 +46,15 @@ class MediaPostTests(TestCase):
         response = self.client.get("/why-family/?page=2", HTTP_HOST="media.afraviva.com")
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response["Location"], "https://afravivamedia.com/why-family/?page=2")
+
+    def test_media_page_shows_tiktok_feed_and_allows_only_tiktok(self):
+        response = self.client.get(reverse("media_hub:list"), HTTP_HOST="afravivamedia.com")
+        self.assertContains(response, 'data-unique-id="afravivamedia"')
+        self.assertIn("https://*.ttwstatic.com", response["Content-Security-Policy"])
+
+    def test_posts_show_follow_banner_without_third_party_scripts(self):
+        post = MediaPost.objects.create(title="Banner post", body="Body", is_published=True, published_at=timezone.now())
+        response = self.client.get(f"/{post.slug}/", HTTP_HOST="afravivamedia.com")
+        self.assertContains(response, "Follow @afravivamedia")
+        self.assertNotContains(response, "tiktok.com/embed.js")
+        self.assertNotIn("tiktok", response["Content-Security-Policy"])

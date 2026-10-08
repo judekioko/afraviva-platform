@@ -1,0 +1,40 @@
+{% load static %}
+{% comment %}
+"Follow us on TikTok" banner. With feed=True it also shows TikTok's own
+profile embed (latest videos); that needs the TikTok CSP allowance that
+media_hub.views.post_list adds, so only use feed=True on that page.
+{% endcomment %}
+<section class="tiktok-follow">
+  <style>
+    .tiktok-follow { background: #1B2F26; color: #FBF9F2; }
+    .tiktok-follow__inner { display: grid; gap: 2rem; align-items: center; }
+    @media (min-width: 768px) { .tiktok-follow__inner.has-feed { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+    .tiktok-follow h2, .tiktok-follow p { color: #FBF9F2; }
+    .tiktok-follow .tiktok-follow__muted { color: rgba(251, 249, 242, .78); }
+    .tiktok-follow__cta { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+    .tiktok-follow__qr { width: 120px; height: 120px; border-radius: 8px; }
+    .tiktok-follow__button { display: inline-block; background: #CDAB7A; color: #1B2F26; font-weight: 600; padding: .75rem 1.5rem; border-radius: 6px; }
+    .tiktok-follow__button:hover { background: #FBF9F2; }
+    .tiktok-follow__feed { background: #FBF9F2; border-radius: 8px; min-height: 320px; overflow: hidden; }
+    .tiktok-follow__feed blockquote { margin: 0 auto; }
+  </style>
+  <div class="max-w-6xl mx-auto px-4 py-12 tiktok-follow__inner{% if feed %} has-feed{% endif %}">
+    <div>
+      <p class="font-mono text-xs uppercase tracking-wide tiktok-follow__muted mb-2">AfraViva Media on TikTok</p>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold mb-3">Follow @afravivamedia</h2>
+      <p class="mb-6 max-w-xl tiktok-follow__muted">Short videos on faith, family and life from Africa's youth: event highlights, interviews and behind-the-scenes clips. Scan the code or tap to follow.</p>
+      <div class="tiktok-follow__cta">
+        <img src="{% static 'img/tiktok-qr.svg' %}" alt="QR code for the @afravivamedia TikTok profile" width="120" height="120" loading="lazy" class="tiktok-follow__qr">
+        <a href="https://www.tiktok.com/@afravivamedia" target="_blank" rel="noopener" class="tiktok-follow__button">Follow on TikTok</a>
+      </div>
+    </div>
+    {% if feed %}
+      <div class="tiktok-follow__feed">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@afravivamedia" data-unique-id="afravivamedia" data-embed-type="creator" style="max-width: 780px; min-width: 288px;">
+          <section><a target="_blank" rel="noopener" href="https://www.tiktok.com/@afravivamedia?refer=creator_embed">@afravivamedia on TikTok</a></section>
+        </blockquote>
+        <script async src="https://www.tiktok.com/embed.js"></script>
+      </div>
+    {% endif %}
+  </div>
+</section>
