@@ -6,5 +6,4 @@ db.sqlite3
 staticfiles/
 mediafiles/
 node_modules/
-static/css/tailwind.build.css
 .pytest_cache/

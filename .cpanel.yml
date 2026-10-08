@@ -1,0 +1,17 @@
+---
+# cPanel Git Version Control runs these tasks on "Deploy HEAD Commit" (and on
+# every push, once the repo is set to deploy automatically). It copies the
+# checked-out code over the live app and restarts the four Python apps.
+#
+# - rsync never deletes, so server-only files (passenger_wsgi.py, uploads in
+#   mediafiles/, staticfiles/, logs) are left alone.
+# - afraviva.com restarts first and is woken with a request: its app.py runs
+#   migrate + collectstatic at startup, and the media/farms apps need the new
+#   static manifest before they render pages that reference new files.
+deployment:
+  tasks:
+    - export APPDIR=$HOME/afraviva-platform
+    - /bin/rsync -rlt --exclude='.git' --exclude='.cpanel.yml' --exclude='deploy/' ./ $APPDIR/
+    - /bin/mkdir -p $APPDIR/tmp && /bin/touch $APPDIR/tmp/restart.txt
+    - /usr/bin/curl -s -o /dev/null --max-time 120 https://afraviva.com/ || true
+    - for app in afravivamedia-app media-app farms-app; do /bin/mkdir -p $HOME/$app/tmp && /bin/touch $HOME/$app/tmp/restart.txt; done
