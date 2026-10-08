@@ -55,7 +55,7 @@
     {% for member in team %}
       <div class="text-center">
         {% if member.photo %}
-          <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-24 h-24 rounded-full mx-auto object-cover mb-3">
+          <img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" class="w-24 h-24 rounded-full mx-auto object-cover mb-3">
         {% endif %}
         <h3 class="font-serif font-semibold text-ink">{{ member.name }}</h3>
         <p class="text-sm text-muted font-mono uppercase">{{ member.role }}</p>

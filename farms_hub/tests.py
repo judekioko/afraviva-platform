@@ -28,3 +28,14 @@ class FarmsSeoTests(TestCase):
         FarmUpdate.objects.filter(slug=self.harvest).update(cover_image="")
         response = self.client.get(f"/{self.harvest}/")
         self.assertContains(response, 'og:image" content="http://farms.afraviva.com/static/img/share-default.jpg"')
+
+    def test_update_has_valid_article_structured_data(self):
+        import json
+        import re
+
+        html = self.client.get(f"/{self.harvest}/").content.decode()
+        blocks = [json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)]
+        self.assertEqual([b["@type"] for b in blocks], ["Article"])
+        self.assertEqual(blocks[0]["headline"], "Tomato Harvest and New Maize: September on the Farm")
+        self.assertEqual(blocks[0]["publisher"]["name"], "AfraViva")
+        self.assertIn("datePublished", blocks[0])

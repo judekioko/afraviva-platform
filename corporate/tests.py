@@ -66,3 +66,12 @@ class SeoTests(TestCase):
         response = self.client.get(reverse("corporate:about"))
         self.assertContains(response, '<meta property="og:title" content="About — AfraViva">')
         self.assertContains(response, 'og:image" content="http://testserver/static/img/share-default.jpg"')
+
+    def test_pages_carry_organization_structured_data(self):
+        import json
+        import re
+
+        html = self.client.get(reverse("corporate:about")).content.decode()
+        (block,) = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+        data = json.loads(block)
+        self.assertEqual((data["@type"], data["name"]), ("Organization", "AfraViva"))

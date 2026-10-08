@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static structured_data %}
 {% block title %}{{ post.title }} — AfraViva Media{% endblock %}
 {% block meta_description %}{{ post.body|striptags|truncatewords:30 }}{% endblock %}
 {% block og_type %}article{% endblock %}
+{% block structured_data %}{% article_jsonld post "AfraViva Media" %}{% endblock %}
 {% block og_title %}{{ post.title }}{% endblock %}
 {% block og_description %}{{ post.body|striptags|truncatewords:30 }}{% endblock %}
 {% block og_image %}{% if post.cover_image %}{{ SITE_ORIGIN }}{{ post.cover_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}

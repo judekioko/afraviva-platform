@@ -50,7 +50,7 @@
     {% for post in page_obj %}
       <a href="{{ post.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
         {% if post.cover_image %}
-          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover">
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy" class="w-full h-40 object-cover">
         {% endif %}
         <div class="p-5">
           <p class="font-mono text-xs text-muted mb-1">{{ post.published_at|date:"M j, Y" }}</p>

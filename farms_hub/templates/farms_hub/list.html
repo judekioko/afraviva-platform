@@ -27,7 +27,7 @@
     {% for update in page_obj %}
       <a href="{{ update.get_absolute_url }}" class="block border border-line rounded overflow-hidden hover:border-gold transition-all hover:-translate-y-1 hover:shadow-md bg-paper-alt">
         {% if update.cover_image %}
-          <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" class="w-full h-40 object-cover">
+          <img src="{{ update.cover_image.url }}" alt="{{ update.title }}" loading="lazy" class="w-full h-40 object-cover">
         {% endif %}
         <div class="p-5">
           <p class="font-mono text-xs text-muted mb-1">{% if update.category %}{{ update.category.name }}{% endif %}{% if update.location %} · {{ update.location }}{% endif %}</p>
