@@ -64,7 +64,7 @@ class SeoTests(TestCase):
 
     def test_pages_carry_share_preview_tags(self):
         response = self.client.get(reverse("corporate:about"))
-        self.assertContains(response, '<meta property="og:title" content="About — AfraViva">')
+        self.assertContains(response, '<meta property="og:title" content="About AfraViva &amp; AfricaNext Opportunities (ANO) — Nairobi, Kenya">')
         self.assertContains(response, 'og:image" content="http://testserver/static/img/share-default.jpg"')
 
     def test_pages_carry_organization_structured_data(self):
