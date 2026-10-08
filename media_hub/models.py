@@ -1,4 +1,7 @@
+import re
+
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 
@@ -87,3 +90,38 @@ class MediaVideo(models.Model):
     @property
     def embed_url(self):
         return youtube_or_vimeo_embed_url(self.url)
+
+
+TIKTOK_VIDEO_URL = re.compile(r"^https://(?:www\.)?tiktok\.com/@[\w.-]+/video/(\d+)")
+
+
+def validate_tiktok_video_url(value):
+    if not TIKTOK_VIDEO_URL.match(value):
+        raise ValidationError(
+            "Paste the full link to one TikTok video, e.g. "
+            "https://www.tiktok.com/@afravivamedia/video/7412345678901234567"
+        )
+
+
+class FeaturedTikTok(models.Model):
+    """A TikTok video shown on the Media page with TikTok's single-video
+    player. (TikTok's whole-profile widget was replaced: it kept failing on
+    phones with TikTok's "overload-protect triggered" error.)
+    """
+
+    url = models.URLField(validators=[validate_tiktok_video_url], help_text="Link to one TikTok video.")
+    caption = models.CharField(max_length=120, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    published = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Featured TikTok video"
+
+    def __str__(self):
+        return self.caption or self.url
+
+    @property
+    def player_url(self):
+        match = TIKTOK_VIDEO_URL.match(self.url)
+        return f"https://www.tiktok.com/player/v1/{match.group(1)}?description=0&music_info=0" if match else ""

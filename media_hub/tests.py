@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import MediaPost
+from .models import FeaturedTikTok, MediaPost
 
 
 # media.afraviva.com / afravivamedia.com mount this app at the domain root
@@ -47,10 +47,25 @@ class MediaPostTests(TestCase):
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response["Location"], "https://afravivamedia.com/why-family/?page=2")
 
-    def test_media_page_shows_tiktok_feed_and_allows_only_tiktok(self):
+    def test_media_page_plays_featured_tiktoks_without_tiktok_scripts(self):
+        FeaturedTikTok.objects.create(url="https://www.tiktok.com/@afravivamedia/video/7412345678901234567")
         response = self.client.get(reverse("media_hub:list"), HTTP_HOST="afravivamedia.com")
-        self.assertContains(response, 'data-unique-id="afravivamedia"')
-        self.assertIn("https://*.ttwstatic.com", response["Content-Security-Policy"])
+        self.assertContains(response, 'src="https://www.tiktok.com/player/v1/7412345678901234567?')
+        self.assertNotContains(response, "embed.js")
+        csp = response["Content-Security-Policy"]
+        self.assertIn("frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com https://www.tiktok.com", csp)
+        self.assertIn("script-src 'self';", csp + ";")
+
+    def test_media_page_without_featured_tiktoks_shows_only_the_banner(self):
+        response = self.client.get(reverse("media_hub:list"), HTTP_HOST="afravivamedia.com")
+        self.assertContains(response, "Follow @afravivamedia")
+        self.assertNotContains(response, "tiktok.com/player")
+
+    def test_featured_tiktok_needs_a_single_video_link(self):
+        from django.core.exceptions import ValidationError
+
+        with self.assertRaises(ValidationError):
+            FeaturedTikTok(url="https://www.tiktok.com/@afravivamedia").full_clean()
 
     def test_posts_show_follow_banner_without_third_party_scripts(self):
         post = MediaPost.objects.create(title="Banner post", body="Body", is_published=True, published_at=timezone.now())

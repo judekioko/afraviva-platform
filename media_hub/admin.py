@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import MediaPost, MediaVideo
+from .models import FeaturedTikTok, MediaPost, MediaVideo
 
 
 class MediaVideoInline(admin.TabularInline):
@@ -25,3 +25,9 @@ class MediaPostAdmin(admin.ModelAdmin):
         if not obj.author_id:
             obj.author = request.user
         super().save_model(request, obj, form, change)
+
+
+@admin.register(FeaturedTikTok)
+class FeaturedTikTokAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "order", "published")
+    list_editable = ("order", "published")
