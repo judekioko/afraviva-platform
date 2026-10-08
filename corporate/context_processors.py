@@ -64,4 +64,6 @@ def site_nav(request):
         "SITE": site,
         "OFFICE_LOCATIONS": OfficeLocation.objects.filter(published=True),
         "PAGE_SEO": {seo.page: seo for seo in PageSEO.objects.all()},
+        # e.g. "https://farms.afraviva.com" — og:image needs absolute URLs.
+        "SITE_ORIGIN": request.build_absolute_uri("/").rstrip("/"),
     }

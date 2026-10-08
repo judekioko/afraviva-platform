@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from django.views.static import serve
+
+from corporate.sitemaps import CorporateSitemap, robots_txt
 
 if settings.ADMIN_REQUIRE_2FA:
     # Retrofits the default admin.site to also require a verified OTP device —
@@ -15,6 +18,8 @@ if settings.ADMIN_REQUIRE_2FA:
     admin.site.__class__ = OTPAdminSite
 
 urlpatterns = [
+    path("sitemap.xml", sitemap, {"sitemaps": {"pages": CorporateSitemap}}, name="sitemap"),
+    path("robots.txt", robots_txt),
     # Bare name (not namespaced under admin/accounts) so django-unfold's own
     # login template picks it up automatically for its "Forgotten your
     # password?" link — see venv .../unfold/templates/admin/login.html.

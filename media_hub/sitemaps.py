@@ -1,0 +1,18 @@
+from django.contrib.sitemaps import Sitemap
+
+from .models import MediaPost
+
+
+class MediaSitemap(Sitemap):
+    protocol = "https"
+
+    def items(self):
+        return [None] + list(MediaPost.objects.filter(is_published=True))
+
+    def location(self, item):
+        # Paths, not get_absolute_url(): that hard-codes media.afraviva.com,
+        # and this sitemap is also served from afravivamedia.com.
+        return "/" if item is None else f"/{item.slug}/"
+
+    def lastmod(self, item):
+        return None if item is None else item.updated_at

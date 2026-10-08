@@ -48,3 +48,21 @@ class CorporatePagesTests(TestCase):
     def test_nav_never_points_homes_at_a_django_url(self):
         response = self.client.get(reverse("corporate:home"))
         self.assertContains(response, "https://homes.afraviva.com")
+
+
+class SeoTests(TestCase):
+    def test_main_site_sitemap_lists_corporate_pages(self):
+        response = self.client.get("/sitemap.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<loc>https://testserver/about/</loc>")
+
+    def test_robots_points_at_this_domains_sitemap(self):
+        response = self.client.get("/robots.txt")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Sitemap: http://testserver/sitemap.xml")
+        self.assertContains(response, "Disallow: /admin/")
+
+    def test_pages_carry_share_preview_tags(self):
+        response = self.client.get(reverse("corporate:about"))
+        self.assertContains(response, '<meta property="og:title" content="About — AfraViva">')
+        self.assertContains(response, 'og:image" content="http://testserver/static/img/share-default.jpg"')

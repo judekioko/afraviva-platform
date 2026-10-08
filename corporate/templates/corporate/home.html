@@ -2,6 +2,8 @@
 {% load static %}
 {% block title %}{{ PAGE_SEO.home.title|default:"AfraViva — Where the World Meets Africa" }}{% endblock %}
 {% block meta_description %}{{ PAGE_SEO.home.meta_description|default:"AfraViva, the brand of AfricaNext Opportunities (ANO) — blending talent, faith and innovation to build sustainable businesses across Media, Homes, Farms and Business Development." }}{% endblock %}
+{% block og_title %}{{ PAGE_SEO.home.title|default:"AfraViva — Where the World Meets Africa" }}{% endblock %}
+{% block og_description %}{{ PAGE_SEO.home.meta_description|default:"AfraViva, the brand of AfricaNext Opportunities (ANO) — blending talent, faith and innovation to build sustainable businesses across Media, Homes, Farms and Business Development." }}{% endblock %}
 
 {% block content %}
 {{ hero_slides|json_script:"hero-slides-data" }}

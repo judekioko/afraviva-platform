@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}{{ update.title }} — AfraViva Farms{% endblock %}
+{% block meta_description %}{{ update.body|striptags|truncatewords:30 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ update.title }}{% endblock %}
+{% block og_description %}{{ update.body|striptags|truncatewords:30 }}{% endblock %}
+{% block og_image %}{% if update.cover_image %}{{ SITE_ORIGIN }}{{ update.cover_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content %}
 <article class="max-w-3xl mx-auto px-4 py-16">

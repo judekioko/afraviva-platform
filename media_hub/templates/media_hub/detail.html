@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}{{ post.title }} — AfraViva Media{% endblock %}
+{% block meta_description %}{{ post.body|striptags|truncatewords:30 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.body|striptags|truncatewords:30 }}{% endblock %}
+{% block og_image %}{% if post.cover_image %}{{ SITE_ORIGIN }}{{ post.cover_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content %}
 <article class="max-w-3xl mx-auto px-4 py-16">

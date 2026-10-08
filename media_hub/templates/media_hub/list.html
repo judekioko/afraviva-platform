@@ -2,6 +2,9 @@
 {% load static %}
 {% block title %}{{ PAGE_SEO.media_list.title|default:"Media — AfraViva" }}{% endblock %}
 {% block meta_description %}{{ PAGE_SEO.media_list.meta_description|default:"AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom." }}{% endblock %}
+{% block og_title %}{{ PAGE_SEO.media_list.title|default:"Media — AfraViva" }}{% endblock %}
+{% block og_description %}{{ PAGE_SEO.media_list.meta_description|default:"AfraViva Media is a pro-life, pro-family, Catholic-leaning media house producing youth-centric digital content on faith, family and religious freedom." }}{% endblock %}
+{% block og_image %}{{ SITE_ORIGIN }}{% static 'img/media-hero-poster.jpg' %}{% endblock %}
 
 {% block content %}
 <style>
