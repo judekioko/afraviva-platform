@@ -60,7 +60,7 @@ class SiteSettings(models.Model):
         help_text="Shown after the year in the footer, e.g. \"(c) 2026 {this text}\".",
     )
     homes_url = models.URLField(default="https://homes.afraviva.com")
-    media_url = models.URLField(default="https://media.afraviva.com")
+    media_url = models.URLField(default="https://afravivamedia.com")
     farms_url = models.URLField(default="https://farms.afraviva.com")
 
     # Homepage

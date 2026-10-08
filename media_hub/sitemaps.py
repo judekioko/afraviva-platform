@@ -10,8 +10,7 @@ class MediaSitemap(Sitemap):
         return [None] + list(MediaPost.objects.filter(is_published=True))
 
     def location(self, item):
-        # Paths, not get_absolute_url(): that hard-codes media.afraviva.com,
-        # and this sitemap is also served from afravivamedia.com.
+        # A path, not get_absolute_url(), which returns a full URL.
         return "/" if item is None else f"/{item.slug}/"
 
     def lastmod(self, item):

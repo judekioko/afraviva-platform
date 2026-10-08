@@ -55,11 +55,11 @@ class MediaPost(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        # Always the real subdomain, not a local reverse() — this model's
+        # Always the main Media domain, not a local reverse() — this model's
         # detail page only exists there, and this URL gets rendered both
-        # from media.afraviva.com's own pages and from afraviva.com's
-        # homepage teasers, where media_hub isn't in the urlconf at all.
-        return f"https://media.afraviva.com/{self.slug}/"
+        # from the Media site's own pages and from afraviva.com's homepage
+        # teasers, where media_hub isn't in the urlconf at all.
+        return f"https://afravivamedia.com/{self.slug}/"
 
     @property
     def video_embed_url(self):
