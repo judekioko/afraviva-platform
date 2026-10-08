@@ -37,6 +37,11 @@ try:
 except Exception:
     logger.exception("bootstrap_admin failed at startup")
 
+try:
+    call_command("twofa_status", verbosity=0)
+except Exception:
+    logger.exception("twofa_status failed at startup")
+
 from django.core.wsgi import get_wsgi_application  # noqa: E402
 
 application = get_wsgi_application()

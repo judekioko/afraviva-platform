@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -8,6 +9,8 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
 from .models import SignupRequest, StaffProfile
 
@@ -85,3 +88,18 @@ class SignupRequestAdmin(admin.ModelAdmin):
             status=SignupRequest.STATUS_REJECTED, reviewed_at=timezone.now(), reviewed_by=request.user,
         )
         self.message_user(request, f"Rejected {updated} request(s).")
+
+
+class StaffUserAdmin(UserAdmin):
+    """Adds a "Two-step login" column, so it's clear who still needs to set
+    up an authenticator before ADMIN_REQUIRE_2FA can be switched on."""
+
+    list_display = UserAdmin.list_display + ("has_two_step_login",)
+
+    @admin.display(boolean=True, description="Two-step login")
+    def has_two_step_login(self, user):
+        return TOTPDevice.objects.filter(user=user, confirmed=True).exists()
+
+
+admin.site.unregister(get_user_model())
+admin.site.register(get_user_model(), StaffUserAdmin)

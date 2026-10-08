@@ -95,3 +95,24 @@ class PasswordExpiryMiddlewareTests(TestCase):
         self.client.force_login(admin)
         response = self.client.get(reverse("corporate:contact"))
         self.assertEqual(response.status_code, 200)
+
+
+class TwoFactorStatusTests(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.admin = User.objects.create_superuser("boss", "boss@example.com", "x")
+        self.staffer = User.objects.create_user("staffer", "staffer@example.com", "x", is_staff=True)
+
+    def test_status_names_staff_without_a_device(self):
+        from accounts.management.commands.twofa_status import staff_without_2fa
+        from django_otp.plugins.otp_totp.models import TOTPDevice
+
+        TOTPDevice.objects.create(user=self.admin, name="phone", confirmed=True)
+        _, missing = staff_without_2fa()
+        self.assertEqual([u.username for u in missing], ["staffer"])
+
+    def test_user_list_shows_two_step_column(self):
+        self.client.force_login(self.admin)
+        response = self.client.get("/admin/auth/user/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Two-step login")
