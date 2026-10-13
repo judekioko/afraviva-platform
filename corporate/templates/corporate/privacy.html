@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy — AfraViva{% endblock %}
+{% block meta_description %}How AfraViva collects, uses, shares and protects personal data across afraviva.com, AfraViva Media, Farms and Homes, and how to exercise your rights.{% endblock %}
+{% block og_title %}Privacy Policy — AfraViva{% endblock %}
+{% block og_description %}How AfraViva collects, uses, shares and protects personal data, and how to exercise your rights.{% endblock %}
+
+{% block content %}
+{# Public sections 1–7 of the AfraViva Privacy and Data Protection Policy. Section 8 (internal staff duties) is not published. #}
+<style>
+  .policy h2 { font-family: inherit; font-size: 1.35rem; font-weight: 600; color: #2C4A3B; margin: 2.5rem 0 .75rem; }
+  .policy p, .policy li { line-height: 1.7; margin-bottom: .75rem; }
+  .policy ul { list-style: disc; padding-left: 1.25rem; }
+  .policy a { color: #8A6323; text-decoration: underline; }
+  .policy__table { width: 100%; overflow-x: auto; margin: 1rem 0 1.5rem; }
+  .policy table { width: 100%; border-collapse: collapse; font-size: .875rem; min-width: 560px; }
+  .policy th, .policy td { border: 1px solid #E3DDC8; padding: .6rem .75rem; text-align: left; vertical-align: top; }
+  .policy th { background: #F1ECDC; font-weight: 600; }
+</style>
+<article class="policy max-w-4xl mx-auto px-4 py-16 text-ink-soft">
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold text-forest mb-2">Privacy Policy</h1>
+  <p class="font-mono text-xs text-muted mb-8">Last updated {{ SITE.privacy_policy_updated|date:"j F Y" }}</p>
+
+  <p>This policy explains what personal data AfraViva collects through its websites, why, who receives it, how long it is kept and how you can exercise your rights. It applies to afraviva.com, afravivamedia.com (also reached at media.afraviva.com), farms.afraviva.com and homes.afraviva.com, and to enquiries we receive through them.</p>
+  <p>We follow Kenya's Data Protection Act, 2019 and its regulations, and Uganda's Data Protection and Privacy Act, 2019 for our Uganda farm work.</p>
+
+  <h2>1. Who we are</h2>
+  <p>AfricaNext Opportunities (ANO), trading as AfraViva, is the data controller for the personal data described here. AfraViva Media, AfraViva Homes and AfraViva Farms are brands of the same company.</p>
+  <div class="policy__table"><table>
+    <tr><th>Address</th><td>St. Joseph Studio, Covenant Road, off Ngong Road, past Dagoretti Corner, Nairobi, Kenya</td></tr>
+    <tr><th>Data protection contact</th><td><a href="mailto:{{ SITE.privacy_email|default:SITE.contact_email }}">{{ SITE.privacy_email|default:SITE.contact_email }}</a></td></tr>
+    {% if SITE.odpc_registration_number %}<tr><th>ODPC registration number</th><td>{{ SITE.odpc_registration_number }}</td></tr>{% endif %}
+  </table></div>
+  <p>All questions, requests and complaints about personal data go to the data protection contact above.</p>
+
+  <h2>2. What we collect and why</h2>
+  <p>We collect only what we need to answer you, run the sites and tell our story. We do not sell personal data, profile visitors or run advertising trackers.</p>
+  <div class="policy__table"><table>
+    <tr><th>Where it comes from</th><th>Data</th><th>Why we use it</th><th>Lawful basis</th><th>How long we keep it</th></tr>
+    <tr><td>Contact form on afraviva.com</td><td>Name, email, phone (optional), message, page it was sent from</td><td>To reply and handle the enquiry</td><td>Your consent when you submit, and our legitimate interest in answering</td><td>24 months after the enquiry is resolved</td></tr>
+    <tr><td>Homes enquiry and "notify me" forms</td><td>Name, phone, email, property, message</td><td>Sent by you to us on WhatsApp so we can respond</td><td>Your consent</td><td>As long as the conversation is needed, up to 24 months</td></tr>
+    <tr><td>Staff access requests</td><td>Name, email, reason for access</td><td>To review and set up admin accounts</td><td>Legitimate interest</td><td>Until the request is decided, then 12 months</td></tr>
+    <tr><td>Admin accounts</td><td>Name, email, password (stored encrypted), login times, two-step login device</td><td>To run the content admin securely</td><td>Contract and legitimate interest</td><td>While the account is active, then 12 months</td></tr>
+    <tr><td>Website server logs</td><td>IP address, browser type, pages requested, time</td><td>Security, fixing errors, preventing abuse</td><td>Legitimate interest</td><td>Rolling: trimmed weekly to recent entries</td></tr>
+    <tr><td>Photos, video and stories</td><td>Images, voices, names and stories of people we feature</td><td>To report our work in Media, Farms and Homes</td><td>Consent of the person shown (a parent or guardian for children)</td><td>While published, or until consent is withdrawn</td></tr>
+  </table></div>
+  <p>We do not knowingly collect sensitive data (such as health or religious affiliation data) through our forms. Please do not include it in messages.</p>
+
+  <h2>3. Cookies</h2>
+  <p>Our sites use only cookies that are strictly necessary for them to work. We use no analytics, advertising or social media tracking cookies.</p>
+  <div class="policy__table"><table>
+    <tr><th>Cookie</th><th>Set on</th><th>Purpose</th><th>Lasts</th></tr>
+    <tr><td>csrftoken</td><td>Pages with a form</td><td>Stops other websites submitting forms in your name (security)</td><td>1 year</td></tr>
+    <tr><td>sessionid</td><td>Admin pages, staff only</td><td>Keeps staff logged in</td><td>Until the browser closes, or after inactivity</td></tr>
+  </table></div>
+  <p>Embedded videos (YouTube, TikTok) may set their own cookies when you play them; see section 4. If we ever add analytics or advertising cookies, we will ask for your consent first and update this policy.</p>
+
+  <h2>4. Who we share data with</h2>
+  <p>We share personal data only with the service providers below, and only what each needs. Some are outside Kenya; where data leaves Kenya we rely on the provider's own safeguards and, where needed, your consent, as section 48 of the Data Protection Act requires.</p>
+  <div class="policy__table"><table>
+    <tr><th>Provider</th><th>What they receive</th><th>Why</th><th>Where</th></tr>
+    <tr><td>Truehost Cloud (hosting and email)</td><td>Everything stored on the sites, enquiry emails, backups</td><td>Runs the websites and mailboxes</td><td>Truehost Cloud data centres</td></tr>
+    <tr><td>WhatsApp (Meta Platforms)</td><td>Details you send through the Homes forms or WhatsApp buttons</td><td>Lets us reply to enquiries</td><td>Outside Kenya</td></tr>
+    <tr><td>Google Fonts</td><td>Your IP address when a page loads its fonts</td><td>Displays the site's typeface</td><td>United States</td></tr>
+    <tr><td>YouTube (privacy-enhanced mode) and TikTok</td><td>Your IP address and their cookies when you play an embedded video</td><td>Plays videos on Media pages</td><td>Outside Kenya</td></tr>
+  </table></div>
+  <p>We may also disclose data when the law requires it, for example to comply with a court order. We never sell or rent personal data.</p>
+
+  <h2>5. Photos, video and children</h2>
+  <p>We feature real people in our stories, events, farms and homes. We publish an identifiable person's photo, video, voice or story only with their consent.</p>
+  <ul>
+    <li><strong>Adults</strong> sign a photo and video release before we publish, naming where the content may appear.</li>
+    <li><strong>Children under 18</strong> appear only with written consent from a parent or guardian (section 33 of the Data Protection Act). We do not publish a child's full name, school or location alongside their image.</li>
+    <li><strong>Crowd and event shots</strong> are taken at events announced as filmed. Anyone who asks will be blurred or removed.</li>
+    <li><strong>Withdrawing consent:</strong> anyone featured can ask us to remove their image or story by contacting us (section 1). We remove it from our websites within 14 days and stop using it in new material.</li>
+  </ul>
+
+  <h2>6. How long we keep data and how we protect it</h2>
+  <p>We keep personal data only for the periods in section 2, then delete it. A full backup of the sites is taken weekly and only the four most recent are kept, so deleted data leaves our backups within about one month.</p>
+  <ul>
+    <li>All sites use HTTPS encryption.</li>
+    <li>Admin access is limited to named staff, locks after repeated failed logins and times out when idle.</li>
+    <li>Passwords are stored only in encrypted (hashed) form.</li>
+    <li>Enquiries are visible only to staff who handle them.</li>
+  </ul>
+
+  <h2>7. Your rights</h2>
+  <p>You can contact us (section 1) to exercise these rights under the Data Protection Act, 2019:</p>
+  <ul>
+    <li><strong>Be informed</strong> of how your data is used (this policy).</li>
+    <li><strong>Access</strong> a copy of the data we hold about you.</li>
+    <li><strong>Correct</strong> data that is inaccurate or out of date.</li>
+    <li><strong>Delete</strong> your data, or object to our using it.</li>
+    <li><strong>Withdraw consent</strong> at any time, without affecting what was done before.</li>
+    <li><strong>Data portability:</strong> receive your data in a common format, or have it sent to another organisation.</li>
+  </ul>
+  <p>We confirm requests within 7 days and complete them as soon as possible, free of charge. We may ask for proof of identity first.</p>
+  <p><strong>Complaints.</strong> If you are unhappy with how we handled your data, please contact us first. You can also complain to the <a href="https://www.odpc.go.ke" target="_blank" rel="noopener">Office of the Data Protection Commissioner</a> in Kenya, or, for our Uganda farm work, to Uganda's Personal Data Protection Office.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>We will update this page when our practices change, and show the date of the latest version at the top.</p>
+</article>
+{% endblock %}

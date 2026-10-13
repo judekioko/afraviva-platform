@@ -11,4 +11,5 @@ urlpatterns = [
     path("thrivepoint-insights/", views.thrivepoint, name="thrivepoint"),
     path("faq/", views.faq, name="faq"),
     path("contact/", views.contact, name="contact"),
+    path("privacy/", views.privacy, name="privacy"),
 ]

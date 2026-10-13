@@ -9,7 +9,7 @@ class CorporateSitemap(Sitemap):
     changefreq = "monthly"
 
     def items(self):
-        return ["home", "about", "services", "thrivepoint", "faq", "contact"]
+        return ["home", "about", "services", "thrivepoint", "faq", "contact", "privacy"]
 
     def location(self, item):
         return reverse(f"corporate:{item}")

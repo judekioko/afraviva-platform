@@ -75,3 +75,30 @@ class SeoTests(TestCase):
         (block,) = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
         data = json.loads(block)
         self.assertEqual((data["@type"], data["name"]), ("Organization", "AfraViva"))
+
+
+class PrivacyPolicyTests(TestCase):
+    def test_privacy_page_falls_back_to_contact_email_and_hides_blank_registration(self):
+        from corporate.models import SiteSettings
+
+        site = SiteSettings.load()
+        response = self.client.get(reverse("corporate:privacy"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f"mailto:{site.contact_email}")
+        self.assertNotContains(response, "ODPC registration number")
+        self.assertNotContains(response, "Internal responsibilities")
+
+    def test_privacy_settings_show_once_filled_in(self):
+        from corporate.models import SiteSettings
+
+        site = SiteSettings.load()
+        site.privacy_email = "privacy@afraviva.com"
+        site.odpc_registration_number = "ODPC/DC/123"
+        site.save()
+        response = self.client.get(reverse("corporate:privacy"))
+        self.assertContains(response, "mailto:privacy@afraviva.com")
+        self.assertContains(response, "ODPC/DC/123")
+
+    def test_footer_and_contact_form_link_to_privacy_policy(self):
+        response = self.client.get(reverse("corporate:contact"))
+        self.assertContains(response, 'href="https://afraviva.com/privacy/"', count=2)

@@ -51,6 +51,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 "vision_eyebrow", "vision_heading", "vision_fun_fact",
             ),
         }),
+        ("Privacy Policy page", {"fields": ("privacy_email", "odpc_registration_number", "privacy_policy_updated")}),
         ("Services page", {"fields": ("services_intro",)}),
         ("ThrivePoint Insights page", {"fields": ("thrivepoint_intro",)}),
         ("About page", {

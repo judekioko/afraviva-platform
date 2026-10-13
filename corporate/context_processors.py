@@ -24,6 +24,7 @@ _CORPORATE_PATHS = {
     "thrivepoint": "/thrivepoint-insights/",
     "faq": "/faq/",
     "contact": "/contact/",
+    "privacy": "/privacy/",
 }
 
 
@@ -57,6 +58,7 @@ def site_nav(request):
         "NAV_LINKS": [resolve_link(link) for link in NavLink.objects.filter(published=True)],
         "ON_MAIN_SITE": on_main_site,
         "HOME_HREF": CORPORATE_SITE_URL + "/",
+        "PRIVACY_HREF": CORPORATE_SITE_URL + _CORPORATE_PATHS["privacy"],
         "HOMES_URL": site.homes_url,
         "MEDIA_SITE_URL": site.media_url,
         "FARMS_SITE_URL": site.farms_url,

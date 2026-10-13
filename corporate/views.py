@@ -60,3 +60,7 @@ def faq(request):
 def contact(request):
     context = {"form": EnquiryForm(), "offices": OfficeLocation.objects.filter(published=True)}
     return render(request, "corporate/contact.html", context)
+
+
+def privacy(request):
+    return render(request, "corporate/privacy.html")
