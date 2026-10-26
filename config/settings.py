@@ -51,6 +51,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",  # serves /static/ with DEBUG=False, no separate web-server config needed
     "accounts.middleware.AdminCSPMiddleware",  # must stay before CSPMiddleware — see its docstring
     "csp.middleware.CSPMiddleware",
+    "corporate.maintenance.maintenance_mode",  # 503 "back soon" page while tmp/maintenance exists
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",

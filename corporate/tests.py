@@ -102,3 +102,39 @@ class PrivacyPolicyTests(TestCase):
     def test_footer_and_contact_form_link_to_privacy_policy(self):
         response = self.client.get(reverse("corporate:contact"))
         self.assertContains(response, 'href="https://afraviva.com/privacy/"', count=2)
+
+
+class MaintenanceModeTests(TestCase):
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+
+        self.tmp = tempfile.TemporaryDirectory()
+        self.flag = Path(self.tmp.name) / "maintenance"
+        patcher = mock.patch("corporate.maintenance.FLAG", self.flag)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        self.addCleanup(self.tmp.cleanup)
+
+    def test_sites_work_normally_without_the_flag(self):
+        self.assertEqual(self.client.get("/").status_code, 200)
+
+    def test_flag_shows_back_soon_page_with_503(self):
+        self.flag.touch()
+        response = self.client.get("/about/")
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response["Retry-After"], "3600")
+        self.assertContains(response, "We'll be back soon", status_code=503)
+
+    def test_admin_login_stays_open(self):
+        self.flag.touch()
+        self.assertEqual(self.client.get("/admin/login/").status_code, 200)
+
+    def test_media_and_farms_sites_also_go_offline(self):
+        from django.test import override_settings
+
+        self.flag.touch()
+        for urlconf, host in [("config.urls_media", "afravivamedia.com"), ("config.urls_farms", "farms.afraviva.com")]:
+            with override_settings(ROOT_URLCONF=urlconf, ALLOWED_HOSTS=[host]):
+                self.assertEqual(self.client.get("/", HTTP_HOST=host).status_code, 503)
