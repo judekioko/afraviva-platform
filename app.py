@@ -17,6 +17,7 @@ tmp/startup-done to force them to run again on the next restart.
 import logging
 import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -62,7 +63,18 @@ def _once_per_deploy():
             done_file.write_text(deploy_id)
 
 
+def _purge_daily():
+    """Delete personal data past its retention period, at most once a day
+    (see enquiries/management/commands/purge_expired_data.py)."""
+    stamp = TMP / "last-purge"
+    if stamp.exists() and time.time() - stamp.stat().st_mtime < 86400:
+        return
+    stamp.touch()  # first, so other workers starting now skip it
+    _run("purge_expired_data")
+
+
 _once_per_deploy()
+_purge_daily()
 # Cheap, and must notice a tmp/admin-recovery request on any restart.
 _run("bootstrap_admin")
 

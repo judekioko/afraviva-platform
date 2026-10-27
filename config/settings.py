@@ -144,8 +144,8 @@ CONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
         "default-src": ["'self'"],
         "img-src": ["'self'", "data:"],
-        "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        "font-src": ["'self'", "https://fonts.gstatic.com"],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "font-src": ["'self'"],  # fonts are self-hosted in static/fonts/
         "script-src": ["'self'"],
         # Lets admin-entered YouTube/Vimeo links (MediaPost.video_url) embed —
         # self-hosted video files don't need this, they play via <video src>.

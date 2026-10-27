@@ -72,7 +72,7 @@ class SiteSettings(models.Model):
         help_text="Office of the Data Protection Commissioner registration number. Shown on the Privacy Policy once filled in.",
     )
     privacy_policy_updated = models.DateField(
-        default=datetime.date(2026, 10, 13), help_text="\"Last updated\" date shown on the Privacy Policy.",
+        default=datetime.date(2026, 10, 27), help_text="\"Last updated\" date shown on the Privacy Policy.",
     )
     media_url = models.URLField(default="https://afravivamedia.com")
     farms_url = models.URLField(default="https://farms.afraviva.com")

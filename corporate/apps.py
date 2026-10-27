@@ -6,7 +6,10 @@ class CorporateConfig(AppConfig):
     name = 'corporate'
 
     def ready(self):
+        from .image_metadata import connect
+
         _stream_ranged_static_files_through_django()
+        connect()
 
 
 def _stream_ranged_static_files_through_django():
