@@ -80,4 +80,15 @@ _run("bootstrap_admin")
 
 from django.core.wsgi import get_wsgi_application  # noqa: E402
 
-application = get_wsgi_application()
+_django_app = get_wsgi_application()
+
+
+def application(environ, start_response):
+    # Scanners send URLs that aren't valid UTF-8; Django's WSGI handler raises
+    # UnicodeDecodeError decoding them before any middleware runs, which the
+    # server turns into a 500. Answer 400 Bad Request instead.
+    try:
+        return _django_app(environ, start_response)
+    except UnicodeDecodeError:
+        start_response("400 Bad Request", [("Content-Type", "text/plain; charset=utf-8")])
+        return [b"Bad request"]
