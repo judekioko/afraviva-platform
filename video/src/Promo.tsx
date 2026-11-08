@@ -1,4 +1,4 @@
-import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {z} from 'zod';
 import {loadFont} from '@remotion/google-fonts/Poppins';
 
@@ -151,21 +151,73 @@ const Partners: React.FC<{partners: string[]; durationInFrames: number}> = ({par
   );
 };
 
-const EndCard: React.FC<{contact: string[]; tagline: string; durationInFrames: number}> = ({contact, tagline, durationInFrames}) => {
+const LOGO_W = 560;
+const LOGO_H = Math.round((LOGO_W * 493) / 746);
+const COLS = 10;
+const ROWS = 7;
+
+// The logo breaks into tiles that fly in from scattered positions and snap together.
+const AssemblingLogo: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const logo = spring({frame, fps, config: {damping: 200}});
+  const tw = LOGO_W / COLS;
+  const th = LOGO_H / ROWS;
+  const tiles = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const id = `${r}-${c}`;
+      const delay = 4 + random(`d${id}`) * 28;
+      const p = spring({frame: frame - delay, fps, config: {damping: 16, stiffness: 90, mass: 0.9}});
+      const dx = (random(`x${id}`) - 0.5) * 1400;
+      const dy = (random(`y${id}`) - 0.5) * 900;
+      const rot = (random(`r${id}`) - 0.5) * 360;
+      const opacity = interpolate(frame - delay, [0, 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+      tiles.push(
+        <div
+          key={id}
+          style={{
+            position: 'absolute',
+            left: c * tw,
+            top: r * th,
+            // 1px overlap hides seams once the tiles meet.
+            width: tw + 1,
+            height: th + 1,
+            opacity,
+            transform: `translate(${(1 - p) * dx}px, ${(1 - p) * dy}px) rotate(${(1 - p) * rot}deg) scale(${0.5 + 0.5 * p})`,
+            backgroundImage: `url(${staticFile('img/afraviva-media-logo-3.png')})`,
+            backgroundSize: `${LOGO_W}px ${LOGO_H}px`,
+            backgroundPosition: `${-c * tw}px ${-r * th}px`,
+          }}
+        />,
+      );
+    }
+  }
+  // Soft glow once everything has landed.
+  const glow = interpolate(frame, [50, 62, 90], [0, 0.55, 0.25], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  return (
+    <div style={{position: 'relative', width: LOGO_W, height: LOGO_H, boxShadow: `0 0 80px ${GOLD}`, borderRadius: 6}}>
+      <div style={{position: 'absolute', inset: 0, borderRadius: 6, boxShadow: `0 0 120px 20px ${GOLD_LIGHT}`, opacity: glow}} />
+      {tiles}
+    </div>
+  );
+};
+
+const EndCard: React.FC<{contact: string[]; tagline: string; durationInFrames: number}> = ({contact, tagline, durationInFrames}) => {
+  const frame = useCurrentFrame();
   const fadeIn = interpolate(frame, [0, 10], [0, 1], {extrapolateRight: 'clamp'});
   const fadeOut = interpolate(frame, [durationInFrames - 15, durationInFrames], [1, 0], {extrapolateLeft: 'clamp'});
+  const textIn = interpolate(frame, [60, 80], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill style={{opacity: fadeIn * fadeOut, background: FOREST, justifyContent: 'center', alignItems: 'center'}}>
-      <Img src={staticFile('img/afraviva-logo.png')} style={{height: 200, transform: `scale(${logo})`}} />
-      <div style={{color: PAPER, fontSize: 64, fontWeight: 700, marginTop: 24}}>We tell Africa&apos;s story!</div>
-      <div style={{color: GOLD_LIGHT, fontSize: 36, marginTop: 8}}>{tagline}</div>
-      <div style={{marginTop: 40, textAlign: 'center', color: PAPER, fontSize: 34, lineHeight: 1.6}}>
-        {contact.map((c) => (
-          <div key={c}>{c}</div>
-        ))}
+      <AssemblingLogo />
+      <div style={{opacity: textIn, textAlign: 'center'}}>
+        <div style={{color: PAPER, fontSize: 56, fontWeight: 700, marginTop: 36}}>We tell Africa&apos;s story!</div>
+        <div style={{color: GOLD_LIGHT, fontSize: 32, marginTop: 4}}>{tagline}</div>
+        <div style={{marginTop: 28, color: PAPER, fontSize: 30, lineHeight: 1.5}}>
+          {contact.map((c) => (
+            <div key={c}>{c}</div>
+          ))}
+        </div>
       </div>
     </AbsoluteFill>
   );
@@ -176,16 +228,20 @@ export const Promo: React.FC<PromoProps> = ({title, tagline, scenes, partners, c
   const f = (s: number) => Math.round(s * fps);
   return (
     <AbsoluteFill style={{background: FOREST_DARK, fontFamily}}>
-      {/* Original synthesised bed (video/tools/make_music.py): strong opening hit, riser, drive, closing hit. */}
+      {/* Original synthesised music (video/tools/make_music.py), ducked under the voice-over. */}
       <Audio
         src={staticFile('audio/promo-bed.mp3')}
         volume={(frame) =>
-          interpolate(frame, [0, 6, durationInFrames - 45, durationInFrames], [0.6, 0.6, 0.6, 0], {
-            extrapolateLeft: 'clamp',
-            extrapolateRight: 'clamp',
-          })
+          interpolate(
+            frame,
+            [0, f(0.8), f(1.2), f(3.9), f(4.6), f(33), f(33.6), durationInFrames - 45, durationInFrames],
+            [0.7, 0.7, 0.4, 0.4, 0.3, 0.3, 0.4, 0.4, 0],
+            {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+          )
         }
       />
+      {/* AI voice-over (video/tools/make_voice.py, Kokoro), timed to the scene captions. */}
+      <Audio src={staticFile('audio/promo-voice.mp3')} volume={1} />
 
       {/* Source footage is 1280x588, scaled to full width and letterboxed. */}
       <div style={{position: 'absolute', left: 0, top: 60, width: 1920, height: 882, overflow: 'hidden'}}>
