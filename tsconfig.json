@@ -1,0 +1,4 @@
+{
+  "extends": "./video/tsconfig.json",
+  "include": ["video/src", "video/remotion.config.ts"]
+}
