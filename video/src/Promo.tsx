@@ -1,4 +1,4 @@
-import {AbsoluteFill, Img, OffthreadVideo, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {z} from 'zod';
 import {loadFont} from '@remotion/google-fonts/Poppins';
 
@@ -176,6 +176,17 @@ export const Promo: React.FC<PromoProps> = ({title, tagline, scenes, partners, c
   const f = (s: number) => Math.round(s * fps);
   return (
     <AbsoluteFill style={{background: FOREST_DARK, fontFamily}}>
+      {/* Original synthesised bed (video/tools/make_music.py): strong opening hit, riser, drive, closing hit. */}
+      <Audio
+        src={staticFile('audio/promo-bed.mp3')}
+        volume={(frame) =>
+          interpolate(frame, [0, 6, durationInFrames - 45, durationInFrames], [0.6, 0.6, 0.6, 0], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          })
+        }
+      />
+
       {/* Source footage is 1280x588, scaled to full width and letterboxed. */}
       <div style={{position: 'absolute', left: 0, top: 60, width: 1920, height: 882, overflow: 'hidden'}}>
         <OffthreadVideo src={staticFile('video/media-hero.mp4')} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />
