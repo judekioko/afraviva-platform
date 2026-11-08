@@ -115,12 +115,12 @@ bar = 4 * beat
 CH = 2 * bar
 penta = [69, 72, 74, 76, 79, 81, 84]  # A minor pentatonic-ish for the kalimba
 
-# Strong intro: ensemble hit, building riser and rolling drums, second hit at 4s.
-add(taiko(), 0.0, 1.0)
-add(riser(3.3), 0.6, 0.45)
-for k in range(8):  # drum roll into the title change
-    add(conga(230 + 12 * (k % 3)), 2.2 + k * step * 1.5, 0.35 + 0.05 * k, pan=-0.3 if k % 2 else 0.3)
-add(taiko(3.2), 4.0, 0.85)
+# Gentle, melodic opening: a soft low drum, then a rising kalimba figure over a
+# swelling pad. No noise risers or roll, so it starts warm instead of harsh.
+add(drum(110, 55, 6, 1.2, click=0.05, click_cut=800), 0.0, 0.5)
+for k, mid in enumerate([69, 72, 76, 79, 81, 84]):
+    add(kalimba(m(mid), 1.8), 0.25 + k * beat / 2, 0.2 + 0.02 * k, pan=-0.3 if k % 2 else 0.3)
+add(drum(120, 58, 7, 1.0, click=0.08, click_cut=900), 4.0, 0.55)
 
 # Pad + soft bass (warm, no hard sub)
 for i in range(int((DUR - 0.5) / CH) + 1):
@@ -134,22 +134,23 @@ for i in range(int((DUR - 0.5) / CH) + 1):
 bar_idx = 0
 t = 0.0
 while t < DUR - 0.1:
-    if t >= 4.0 - 1e-6:
+    if t >= 2.0 - 1e-6:
+        ramp = min(1.0, (t - 2.0) / 6.0) * 0.8 + 0.2 if t < 8.0 else 1.0  # eases in over 6s
         s = int(round((t - 4.0) / step)) % 16  # 16th-note step within the bar
         if s in (0, 6, 10):
-            add(djembe_bass(), t, 0.75 if s == 0 else 0.55)
+            add(djembe_bass(), t, (0.6 if s == 0 else 0.42) * ramp)
         if s in (4, 12):
-            add(djembe_tone(), t, 0.4, pan=0.2)
+            add(djembe_tone(), t, 0.3 * ramp, pan=0.2)
         if s in (7, 15):
-            add(djembe_slap(), t, 0.3, pan=-0.2)
+            add(djembe_slap(), t, 0.2 * ramp, pan=-0.2)
         if t >= 8.0 and s in (2, 3, 8, 11, 14):
             add(conga(250 if s % 2 else 190), t, 0.3, pan=-0.35)
-        add(shaker(1.4 if s % 4 == 2 else 0.7), t, 0.6, pan=0.4 if s % 2 else -0.4)
+        add(shaker(1.4 if s % 4 == 2 else 0.7), t, 0.4 * ramp, pan=0.4 if s % 2 else -0.4)
     t += step
 
 # Kalimba melody from 8s: gentle pentatonic phrase over each chord, with an echo.
 phrase = [0, 2, 4, 2, 3, 1, 2, 0]
-t = 8.0
+t = 6.0
 n = 0
 while t < 38.0:
     idx = phrase[n % len(phrase)] + (n // 16 % 2)
@@ -161,12 +162,12 @@ while t < 38.0:
     n += 1
 
 # Closing: ensemble hit + chord swell with the end card.
-add(taiko(3.2), 38.0, 0.8)
+add(drum(120, 55, 6, 1.5, click=0.08, click_cut=900), 38.0, 0.6)
 add(pad([m(x) for x in (57, 60, 64, 69)], 6.5), 38.0, 0.35)
 
 tt = np.arange(N) / SR
 out *= np.minimum(tt / 0.01, 1)[:, None] * np.clip((DUR - tt) / 2.5, 0, 1)[:, None]
-out = np.tanh(out / np.abs(out).max() * 1.5) * 0.85
+out = np.tanh(out / np.abs(out).max() * 1.1) * 0.9
 
 wav = "/tmp/promo-bed.wav" if len(sys.argv) < 3 else sys.argv[2]
 with wave.open(wav, "wb") as w:

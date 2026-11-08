@@ -35,7 +35,7 @@ export const Intro: React.FC<z.infer<typeof introSchema>> = ({title, subtitle}) 
         opacity: fadeOut,
       }}
     >
-      <Img src={staticFile('img/afraviva-logo.png')} style={{height: 220, transform: `scale(${logoScale})`}} />
+      <Img src={staticFile('img/afraviva-media-logo-3.png')} style={{height: 330, borderRadius: 6, transform: `scale(${logoScale})`}} />
       <h1 style={{color: PAPER, fontSize: 120, fontWeight: 700, margin: '40px 0 0', opacity: titleOpacity}}>{title}</h1>
       <p style={{color: GOLD, fontSize: 52, margin: '16px 0 0', opacity: subtitleOpacity}}>{subtitle}</p>
     </AbsoluteFill>
