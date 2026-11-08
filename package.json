@@ -10,7 +10,8 @@
     "video:render": "remotion render --config=video/remotion.config.ts video/src/index.ts Intro video/out/intro.mp4",
     "video:still": "remotion still --config=video/remotion.config.ts video/src/index.ts Intro video/out/intro.png --frame=60",
     "video:compositions": "remotion compositions --config=video/remotion.config.ts video/src/index.ts",
-    "video:typecheck": "tsc -p tsconfig.json"
+    "video:typecheck": "tsc -p tsconfig.json",
+    "video:render:promo": "remotion render --config=video/remotion.config.ts video/src/index.ts Promo video/out/promo.mp4"
   },
   "keywords": [],
   "author": "",
