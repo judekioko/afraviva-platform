@@ -10,3 +10,4 @@ node_modules/
 tmp/
 
 video/out/
+static/video/clips/
