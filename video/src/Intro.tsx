@@ -1,5 +1,8 @@
 import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {z} from 'zod';
+import {loadFont} from '@remotion/google-fonts/Poppins';
+
+const {fontFamily} = loadFont('normal', {weights: ['400', '700'], subsets: ['latin']});
 
 export const introSchema = z.object({
   title: z.string(),
@@ -28,12 +31,12 @@ export const Intro: React.FC<z.infer<typeof introSchema>> = ({title, subtitle}) 
         backgroundColor: FOREST,
         justifyContent: 'center',
         alignItems: 'center',
-        fontFamily: 'Poppins, sans-serif',
+        fontFamily,
         opacity: fadeOut,
       }}
     >
       <Img src={staticFile('img/afraviva-logo.png')} style={{height: 220, transform: `scale(${logoScale})`}} />
-      <h1 style={{color: PAPER, fontSize: 120, margin: '40px 0 0', opacity: titleOpacity}}>{title}</h1>
+      <h1 style={{color: PAPER, fontSize: 120, fontWeight: 700, margin: '40px 0 0', opacity: titleOpacity}}>{title}</h1>
       <p style={{color: GOLD, fontSize: 52, margin: '16px 0 0', opacity: subtitleOpacity}}>{subtitle}</p>
     </AbsoluteFill>
   );
