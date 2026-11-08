@@ -1,0 +1,374 @@
+{
+ "durationSec": 193.13,
+ "voiceEndSec": 188.13,
+ "sections": [
+  {
+   "mode": "warm",
+   "startSec": 2.5
+  },
+  {
+   "mode": "serious",
+   "startSec": 37.12
+  },
+  {
+   "mode": "rising",
+   "startSec": 84.45
+  },
+  {
+   "mode": "majestic",
+   "startSec": 113.31
+  }
+ ],
+ "lines": [
+  {
+   "text": "But the Incarnation required the YES of a man as well.",
+   "mode": "warm",
+   "startSec": 2.5,
+   "endSec": 6.57,
+   "paragraphStart": true
+  },
+  {
+   "text": "Joseph.",
+   "mode": "warm",
+   "startSec": 7.47,
+   "endSec": 8.46,
+   "paragraphStart": true
+  },
+  {
+   "text": "A just man, who could have chosen his reputation, his comfort and his own plans.",
+   "mode": "warm",
+   "startSec": 8.81,
+   "endSec": 14.4,
+   "paragraphStart": false
+  },
+  {
+   "text": "Instead, he obeyed.",
+   "mode": "warm",
+   "startSec": 15.3,
+   "endSec": 17.02,
+   "paragraphStart": true
+  },
+  {
+   "text": "He took Mary as his wife.",
+   "mode": "warm",
+   "startSec": 17.37,
+   "endSec": 19.57,
+   "paragraphStart": false
+  },
+  {
+   "text": "He protected her dignity.",
+   "mode": "warm",
+   "startSec": 19.92,
+   "endSec": 22.05,
+   "paragraphStart": false
+  },
+  {
+   "text": "He worked with his hands.",
+   "mode": "warm",
+   "startSec": 22.4,
+   "endSec": 24.07,
+   "paragraphStart": false
+  },
+  {
+   "text": "He fled to Egypt to save the Child, and he returned when God called him home.",
+   "mode": "warm",
+   "startSec": 24.42,
+   "endSec": 29.77,
+   "paragraphStart": false
+  },
+  {
+   "text": "His strength was not domination.",
+   "mode": "warm",
+   "startSec": 30.67,
+   "endSec": 33.08,
+   "paragraphStart": true
+  },
+  {
+   "text": "His strength was protection.",
+   "mode": "warm",
+   "startSec": 33.43,
+   "endSec": 35.52,
+   "paragraphStart": false
+  },
+  {
+   "text": "Yet look around us.",
+   "mode": "serious",
+   "startSec": 37.12,
+   "endSec": 38.64,
+   "paragraphStart": true
+  },
+  {
+   "text": "Fathers consumed by ambition.",
+   "mode": "serious",
+   "startSec": 38.99,
+   "endSec": 41.61,
+   "paragraphStart": false
+  },
+  {
+   "text": "Marriages broken by selfishness and infidelity.",
+   "mode": "serious",
+   "startSec": 41.96,
+   "endSec": 45.89,
+   "paragraphStart": false
+  },
+  {
+   "text": "Children growing up without their fathers.",
+   "mode": "serious",
+   "startSec": 46.24,
+   "endSec": 49.12,
+   "paragraphStart": false
+  },
+  {
+   "text": "Women whose homes have become places of fear.",
+   "mode": "serious",
+   "startSec": 49.47,
+   "endSec": 52.88,
+   "paragraphStart": false
+  },
+  {
+   "text": "And we must speak plainly.",
+   "mode": "serious",
+   "startSec": 53.78,
+   "endSec": 55.53,
+   "paragraphStart": true
+  },
+  {
+   "text": "Domestic violence is not authority.",
+   "mode": "serious",
+   "startSec": 56.43,
+   "endSec": 59.37,
+   "paragraphStart": true
+  },
+  {
+   "text": "Rape is not masculinity.",
+   "mode": "serious",
+   "startSec": 59.72,
+   "endSec": 62.14,
+   "paragraphStart": false
+  },
+  {
+   "text": "Abuse is not discipline.",
+   "mode": "serious",
+   "startSec": 62.49,
+   "endSec": 64.73,
+   "paragraphStart": false
+  },
+  {
+   "text": "Cruelty is not strength.",
+   "mode": "serious",
+   "startSec": 65.08,
+   "endSec": 67.17,
+   "paragraphStart": false
+  },
+  {
+   "text": "For Christ does not abuse His Bride.",
+   "mode": "serious",
+   "startSec": 68.07,
+   "endSec": 70.92,
+   "paragraphStart": true
+  },
+  {
+   "text": "He gives Himself for her.",
+   "mode": "serious",
+   "startSec": 71.27,
+   "endSec": 72.98,
+   "paragraphStart": false
+  },
+  {
+   "text": "No woman should be told that enduring abuse is her Christian duty.",
+   "mode": "serious",
+   "startSec": 73.88,
+   "endSec": 78.87,
+   "paragraphStart": true
+  },
+  {
+   "text": "No child should be taught that violence is love.",
+   "mode": "serious",
+   "startSec": 79.22,
+   "endSec": 82.85,
+   "paragraphStart": false
+  },
+  {
+   "text": "The answer is the same YES that Joseph and Mary gave.",
+   "mode": "rising",
+   "startSec": 84.45,
+   "endSec": 88.59,
+   "paragraphStart": true
+  },
+  {
+   "text": "It is a thousand little YESes.",
+   "mode": "rising",
+   "startSec": 89.49,
+   "endSec": 92.07,
+   "paragraphStart": true
+  },
+  {
+   "text": "YES to life.",
+   "mode": "rising",
+   "startSec": 92.42,
+   "endSec": 93.72,
+   "paragraphStart": false
+  },
+  {
+   "text": "YES to fidelity.",
+   "mode": "rising",
+   "startSec": 94.07,
+   "endSec": 95.67,
+   "paragraphStart": false
+  },
+  {
+   "text": "YES to forgiveness.",
+   "mode": "rising",
+   "startSec": 96.02,
+   "endSec": 97.64,
+   "paragraphStart": false
+  },
+  {
+   "text": "YES to prayer.",
+   "mode": "rising",
+   "startSec": 97.99,
+   "endSec": 99.34,
+   "paragraphStart": false
+  },
+  {
+   "text": "YES to responsibility.",
+   "mode": "rising",
+   "startSec": 99.69,
+   "endSec": 101.67,
+   "paragraphStart": false
+  },
+  {
+   "text": "And sometimes, when the Cross comes, YES to suffering united with Christ.",
+   "mode": "rising",
+   "startSec": 102.02,
+   "endSec": 107.16,
+   "paragraphStart": false
+  },
+  {
+   "text": "For the Resurrection, not suffering, is the final word.",
+   "mode": "rising",
+   "startSec": 108.06,
+   "endSec": 111.71,
+   "paragraphStart": true
+  },
+  {
+   "text": "At Fatima, Our Lady promised: in the end, my Immaculate Heart will triumph.",
+   "mode": "majestic",
+   "startSec": 113.31,
+   "endSec": 118.73,
+   "paragraphStart": true
+  },
+  {
+   "text": "But this triumph is not only the defeat of some earthly power.",
+   "mode": "majestic",
+   "startSec": 119.63,
+   "endSec": 124.19,
+   "paragraphStart": true
+  },
+  {
+   "text": "It is grace over sin, truth over error, love over hatred, obedience over rebellion.",
+   "mode": "majestic",
+   "startSec": 124.54,
+   "endSec": 131.16,
+   "paragraphStart": false
+  },
+  {
+   "text": "And it begins in the human heart.",
+   "mode": "majestic",
+   "startSec": 132.06,
+   "endSec": 134.83,
+   "paragraphStart": true
+  },
+  {
+   "text": "In the marriage restored.",
+   "mode": "majestic",
+   "startSec": 135.18,
+   "endSec": 137.23,
+   "paragraphStart": false
+  },
+  {
+   "text": "In the father who returns to his vocation.",
+   "mode": "majestic",
+   "startSec": 137.58,
+   "endSec": 140.8,
+   "paragraphStart": false
+  },
+  {
+   "text": "In the mother whose dignity is honoured.",
+   "mode": "majestic",
+   "startSec": 141.15,
+   "endSec": 144.01,
+   "paragraphStart": false
+  },
+  {
+   "text": "In the child who grows up knowing God.",
+   "mode": "majestic",
+   "startSec": 144.36,
+   "endSec": 147.28,
+   "paragraphStart": false
+  },
+  {
+   "text": "The family is the first school of virtue, and the first place a child learns to know God.",
+   "mode": "majestic",
+   "startSec": 148.18,
+   "endSec": 154.41,
+   "paragraphStart": true
+  },
+  {
+   "text": "A society cannot be healthy while its families collapse.",
+   "mode": "majestic",
+   "startSec": 154.76,
+   "endSec": 158.64,
+   "paragraphStart": false
+  },
+  {
+   "text": "So the triumph of Our Lady is the triumph of the family that says YES.",
+   "mode": "majestic",
+   "startSec": 159.54,
+   "endSec": 164.41,
+   "paragraphStart": true
+  },
+  {
+   "text": "The Holy Family of Nazareth remains our model: Mary, the perfect mother.",
+   "mode": "majestic",
+   "startSec": 165.31,
+   "endSec": 170.75,
+   "paragraphStart": true
+  },
+  {
+   "text": "Joseph, the faithful guardian.",
+   "mode": "majestic",
+   "startSec": 171.1,
+   "endSec": 173.51,
+   "paragraphStart": false
+  },
+  {
+   "text": "Jesus, the Son of God.",
+   "mode": "majestic",
+   "startSec": 173.86,
+   "endSec": 175.95,
+   "paragraphStart": false
+  },
+  {
+   "text": "Not through fear, but through faith.",
+   "mode": "majestic",
+   "startSec": 176.85,
+   "endSec": 179.37,
+   "paragraphStart": true
+  },
+  {
+   "text": "Not through domination, but through charity.",
+   "mode": "majestic",
+   "startSec": 179.72,
+   "endSec": 182.83,
+   "paragraphStart": false
+  },
+  {
+   "text": "Not through the glorification of man, but through the glorification of God.",
+   "mode": "majestic",
+   "startSec": 183.18,
+   "endSec": 188.13,
+   "paragraphStart": false
+  }
+ ]
+}

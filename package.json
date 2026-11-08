@@ -13,7 +13,8 @@
     "video:typecheck": "tsc -p tsconfig.json",
     "video:render:promo": "remotion render --config=video/remotion.config.ts video/src/index.ts Promo video/out/promo.mp4",
     "video:render:tiktok": "remotion render --config=video/remotion.config.ts video/src/index.ts PromoVertical video/out/promo-tiktok.mp4",
-    "video:render:clip": "remotion render --config=video/remotion.config.ts video/src/index.ts ClipBranded video/out/clip-branded.mp4"
+    "video:render:clip": "remotion render --config=video/remotion.config.ts video/src/index.ts ClipBranded video/out/clip-branded.mp4",
+    "video:render:act2": "remotion render --config=video/remotion.config.ts video/src/index.ts Act2 video/out/act2.mp4"
   },
   "keywords": [],
   "author": "",

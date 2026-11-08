@@ -1,5 +1,6 @@
 import {Composition} from 'remotion';
 import {Intro, introSchema} from './Intro';
+import {ACT2_FPS, Act2, act2DefaultProps, act2Duration, act2Schema} from './Act2';
 import {CLIP_FPS, ClipBranded, clipBrandedDefaultProps, clipBrandedDuration, clipBrandedSchema} from './ClipBranded';
 import {PROMO_DURATION_SEC, PROMO_FPS, Promo, promoDefaultProps, promoSchema} from './Promo';
 
@@ -15,6 +16,16 @@ export const RemotionRoot: React.FC = () => {
       width={1920}
       height={1080}
       defaultProps={promoDefaultProps}
+    />
+    <Composition
+      id="Act2"
+      component={Act2}
+      schema={act2Schema}
+      durationInFrames={act2Duration()}
+      fps={ACT2_FPS}
+      width={1920}
+      height={1080}
+      defaultProps={act2DefaultProps}
     />
     <Composition
       id="ClipBranded"
