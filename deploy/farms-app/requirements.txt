@@ -1,4 +1,4 @@
-asgiref==3.12.1
+asgiref==3.13.0
 colorama==0.4.6
 Django==5.2.19
 django-axes==8.3.1
