@@ -16,10 +16,12 @@ updates:
       time: "06:00"
       timezone: "Africa/Nairobi"
     open-pull-requests-limit: 5
+    # Minor and patch updates come as one PR covering all four files (ungrouped
+    # updates would get a separate PR per directory). Majors stay separate.
     groups:
-      python-patch-updates:
+      python-minor-and-patch:
         patterns: ["*"]
-        update-types: ["patch"]
+        update-types: ["minor", "patch"]
     ignore:
       # Stay on Django 5.2 LTS (security fixes until April 2028). Moving to
       # 6.x is a planned upgrade, not a weekly bump.
