@@ -1,0 +1,43 @@
+# Dependabot: weekly update PRs, plus security-fix PRs as soon as a
+# vulnerability is published (enabled in the repo's security settings).
+version: 2
+updates:
+  # Python packages. The four requirements files (main app + the media and
+  # farms subdomain apps) must stay identical, so they're updated together.
+  - package-ecosystem: "pip"
+    directories:
+      - "/"
+      - "/deploy/afravivamedia-app"
+      - "/deploy/farms-app"
+      - "/deploy/media-app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Africa/Nairobi"
+    open-pull-requests-limit: 5
+    groups:
+      python-patch-updates:
+        patterns: ["*"]
+        update-types: ["patch"]
+    ignore:
+      # Stay on Django 5.2 LTS (security fixes until April 2028). Moving to
+      # 6.x is a planned upgrade, not a weekly bump.
+      - dependency-name: "Django"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  # Front-end build tools (Tailwind) and the htmx / Alpine versions. Note: the
+  # site serves its own copies in static/vendor/, so an htmx or Alpine update
+  # also needs those files replaced.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Africa/Nairobi"
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor-and-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
