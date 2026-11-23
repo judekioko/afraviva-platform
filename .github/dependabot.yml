@@ -47,3 +47,15 @@ updates:
       # through as security-update PRs.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+
+  # The actions used by .github/workflows/tests.yml.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Africa/Nairobi"
+    groups:
+      actions:
+        patterns: ["*"]

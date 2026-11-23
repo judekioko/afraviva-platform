@@ -1,0 +1,50 @@
+# Runs on every push to main and every pull request (including Dependabot's),
+# so an update can be merged with confidence: the test suite, Django's
+# production checks, and a check that the committed Tailwind CSS is current.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  django:
+    runs-on: ubuntu-latest
+    env:
+      DEBUG: "True"
+      SECRET_KEY: ci-only-not-a-real-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"  # same as the Truehost apps
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest -q
+      - name: Migrations are complete
+        run: python manage.py makemigrations --check --dry-run
+      - name: Production security checks
+        env:
+          DEBUG: "False"
+          SECRET_KEY: ci-only-production-check-key-0123456789abcdefghijklmnopqrstuvwxyz
+          ALLOWED_HOSTS: afraviva.com
+        run: python manage.py check --deploy --fail-level WARNING
+
+  css:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run build:css
+      - name: Committed CSS matches a fresh build
+        run: git diff --exit-code static/css/tailwind.build.css || (echo "Run 'npm run build:css' and commit static/css/tailwind.build.css" && exit 1)
