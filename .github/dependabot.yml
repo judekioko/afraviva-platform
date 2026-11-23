@@ -41,3 +41,9 @@ updates:
       npm-minor-and-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+      # Major versions (e.g. Tailwind 4, htmx 2) change config and markup; plan
+      # those as upgrades instead of weekly PRs. Security fixes still come
+      # through as security-update PRs.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
